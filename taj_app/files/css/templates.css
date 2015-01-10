@@ -1,0 +1,107 @@
+@font-face{ font-family:Zeyada;src:url(../fonts/Zeyada.ttf);}
+@font-face{ font-family:Kristi;	src:url(../fonts/Kristi.ttf);}
+@font-face{ font-family:"Bad Script";src:url(../fonts/BadScript-Regular.ttf);}
+@font-face{ font-family:"Berkshire Swash";src:url(../fonts/BerkshireSwash-Regular.ttf);}
+@font-face{ font-family:"Bilbo Swash Caps";src:url(../fonts/BilboSwashCaps-Regular.ttf);}
+@font-face{ font-family:Condiment;src:url(../fonts/Condiment-Regular.ttf);}
+@font-face{ font-family:"Jim Nightshade";src:url(../fonts/JimNightshade-Regular.ttf);}
+@font-face{ font-family:"Just Me Again Down Here";src:url(../fonts/JustMeAgainDownHere.ttf);}
+@font-face{ font-family:"Kaushan Script";src:url(../fonts/KaushanScript-Regular.ttf);}
+@font-face{ font-family:"Marck Script";src:url(../fonts/MarckScript-Regular.ttf);}
+@font-face{ font-family:"Meie Script";src:url(../fonts/MeieScript-Regular.ttf);}
+@font-face{ font-family:"Nothing You Could Do";src:url(../fonts/NothingYouCouldDo.ttf);}
+@font-face{ font-family:"Over the Rainbow";src:url(../fonts/OvertheRainbow.ttf);}
+@font-face{ font-family:Satisfy;src:url(../fonts/Satisfy-Regular.ttf);}
+@font-face{ font-family:"Shadows Into Light";src:url(../fonts/ShadowsIntoLight.ttf);}
+@font-face{ font-family:"Swanky and Moo Moo";src:url(../fonts/SwankyandMooMoo.ttf);}
+@font-face{ font-family:"The Girl Next Door";src:url(../fonts/TheGirlNextDoor.ttf);}
+@font-face{ font-family:Yesteryear;src:url(../fonts/Yesteryear-Regular.ttf);}
+@font-face{ font-family:"KreepshowFrigid";src:url(../fonts/KreepshowFrigid.ttf);}
+
+.taj_header{
+    height:150px;
+    width: 1050px;
+    position:fixed;
+    top: 0px;
+    //border: solid blue;
+    z-index: 1;
+    background: black;
+}
+.taj_heading{
+    //border: solid orange;
+    margin-top: 65px;
+    margin-left: 80px;
+    height: 50px;
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    alignment-adjust: central;
+    text-shadow: 0px 0px 4px white, 0px -1px 5px yellow, 0px -3px 4px #ff8000, 0px -3px 5px red;
+    font-family: "Kaushan Script",serif;
+}
+.taj_sidebar
+{
+    width: 200px;
+    float: left;
+    height: 100%;
+    position: fixed;
+    //border: solid yellow;
+    margin-left: 0px;
+    margin-top: -20px;
+    background: #6c6c6c;
+}
+.taj_sidebar ul
+{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+.taj_sidebar ul li a
+{
+    text-decoration: none;
+}
+.taj_sidebar ul li a div:hover
+{
+    background: whitesmoke;
+    color:black;
+}
+.taj_sidebar ul li a div
+{
+    //border-left: solid 2px lime;
+    //border-right: solid 2px lime;
+    //border-top: solid 1px lime;
+    //border-bottom: solid 1px lime;
+    height: 30px;
+    line-height: 30px;
+    color: lightblue;
+    text-decoration: none;
+    padding-left: 10px;
+    font-size: 15px;
+}
+.taj_header a{
+    border:none;
+    color: black;
+}
+.taj_header a:visited{
+    border:none;
+    color: black;
+}
+.taj_header_image{
+    margin-top: 25px;
+    margin-left: 40px;
+    width: 150px;
+    height: 100px;
+    display: inline;
+    position: fixed;
+    border: none;
+}
+div.taj_welcome{
+    
+    font-size:18px;
+    font-family:sans-serif;
+    color:white;
+    position: absolute;
+    margin-top:300px;
+    padding-left: 10px;
+}
