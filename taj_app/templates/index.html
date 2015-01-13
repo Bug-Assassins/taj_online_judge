@@ -39,6 +39,7 @@
 		    </div>
 		</div>
         <form method="post" action="" class="login" id="taj_login_form" onsubmit="return check_form()">
+            {% csrf_token %}
             <p>
                 <label for="login">User ID:</label>
                 <input type="text" name="loginid" id="login" maxlength="50">
@@ -56,6 +57,12 @@
         <div class="taj_signup_div">
             <a href="signup">Sign Up</a>
         </div>
+        {% if error and error != '' %}
+            <br/>
+            <div class='taj_loginmessage'>
+                {{error}}
+            </div>
+        {% endif %}
         <!-- <?php
         if(isset($message))
         {
