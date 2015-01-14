@@ -7,14 +7,14 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.min.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/justified-nav.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/templates.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/inside.css' %}">
         <title>TAJ - Teaching, Assisting, Judging | {%block title%}{%endblock%}</title>
-        {%block head%} {%endblock}
+        {%block head%} {%endblock%}
     </head>
     <body>
         <div class="taj_header">
-            <a href="/"><img src="<?php echo $pathpre ?>items/crown500.png" alt="TAJ ICON" class="taj_header_image"></a>
+            <a href="/"><img src="{% static 'items/crown500.png' %}" alt="TAJ ICON" class="taj_header_image"></a>
             <div class="taj_heading">
                     TAJ - Teaching Assisting Judging
             </div>
@@ -24,31 +24,31 @@
             <div>
                 <ul class="taj_sidebarlist">
                     <li><a href='/dashboard'><div> Dashboard </div></a></li>
-                    {% if(request.session.type == 0) %}
-                    {
+                    {% if request.session.type == 0 %}
+
                         <li><a href='/profile/viewprofile'><div>Profile</div></a></li>
                         <li><a href='/problem'><div>Problem Arena</div></a></li>
                         <!--<li><a href='/assignment'><div>Assignment Arena</div></a></li>-->
                         <li><a href='/submissions'><div>Submissions</div></a></li>
-                    }
-                    {% else if(request.session.type == 1) %}
-                    {
+
+                    {% elif request.session.type == 1 %}
+
                         <li><a href='/profile/viewprofile'><div>Profile</div></a></li>
                         <li><a href='/problem'><div>Problem Arena</div></a></li>
                         <!--<li><a href='assignment.php'><div>Assignment Arena</div></a></li>
                         <li><a href='manage_assignment.php'><div>Manage Assignment</div></a></li>-->
                         <li><a href='/submissions'><div>Submissions</div></a></li>
-                    }
-                    {% else if(request.session.type == 1) %}
-                    {
+
+                    {% elif request.session.type == 1 %}
+
                         <li><a href='/profile/viewprofile'><div>Profile</div></a></li>
                         <li><a href='/problem'><div>Problem Arena</div></a></li>
                         <!--<li><a href='assignment.php'><div>Assignment Arena</div></a></li>
                         <li><a href='manage_assignment.php'><div>Manage Assignment</div></a></li>-->
                         <li><a href='/submissions'><div>Submissions</div></a></li>
                         <li><a href='/teachers'><div>Manage Teachers</div></a></li>
-                    }
-                    ?>
+                    
+                    {% endif %}
                     <li><a href='logout'><div>Log Out</div></a></li>
                 </ul>
             </div>

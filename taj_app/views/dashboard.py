@@ -1,4 +1,4 @@
-from import_module import *
+from include_module import *
 
 # File Written by Ashish Kedia, ashish1294@gmail.com
 # Created on 14th Jan, 2015

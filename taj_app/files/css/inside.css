@@ -1,0 +1,108 @@
+<!--
+/* 
+ * Copyright (C) 2014 Adarsh Mohata
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * This file is a part of TAJ Online Judge, developed
+ * @National Institute of Technology Karnataka, Surathkal
+ */
+-->
+body{
+  vertical-align: baseline;
+  line-height: 1;
+  font: 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #404040;
+  width: 1050px;
+  alignment-adjust: central;
+  margin: auto;
+  background: #373737 url("../items/bg.png") 0 0 repeat;
+  //border: solid #373737 1px;
+  padding-top: 0px;
+  height: fit-content;
+}
+.taj_content{
+    margin-top: 170px;
+    margin-left: 200px;
+    padding-left: 10px;
+}
+.taj_content_heading{
+    width: 100%;
+    color: yellow;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 10px;
+}
+.taj_news_table td{
+    color:white;
+    padding:12px;
+    text-align:center;
+}
+
+.taj_news_table td.con{      
+    max-width:300px;
+    word-wrap:break-word;
+}
+
+.taj_news_table th{
+    color:yellow;
+    padding:10px;
+    text-align:center;
+}
+.taj_news_add_table{
+    position: relative;
+    margin: auto;
+    width:max-content;
+    padding-right: 32px;
+    font-weight: 300;
+    color: #a8a7a8;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+.taj_news_add_table label,textarea {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.taj_news_add_table textarea {
+  padding: 0 10px;
+  width: 400px;
+  height: 150px;
+  color: #bbb;
+  text-shadow: 1px 1px 1px black;
+  background: rgba(0, 0, 0, 0.16);
+  border: 0;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+.taj_news_add_table textarea:focus {
+  color: white;
+  background: rgba(0, 0, 0, 0.1);
+  outline: 0;
+}
+
+.taj_news_add_table label {
+  float: left;
+  width:max-content;
+  line-height: 40px;
+  padding-right: 10px;
+  font-weight: 100;
+  text-align: right;
+  letter-spacing: 1px;
+}
