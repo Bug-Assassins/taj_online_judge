@@ -1,0 +1,1 @@
+Add a Captcha to the Sign Up Form - No good offline Captcha Libraries were found for custom form that is compatible with Django. Looks like this has to be done from scratch. A simple Math captcha library will be better
