@@ -39,3 +39,8 @@ class user(models.Model) :
     last_login = models.DateTimeField(auto_now_add=False, auto_now=False, blank=True, null=True)
     last_login_ip = models.CharField(max_length=20, blank=True, default='0.0.0.0')
     last_session = models.ForeignKey(Session, null=True)
+
+class news(models.Model) :
+    posted_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    content = models.CharField(max_length=500)
+    author = models.ForeignKey(user)

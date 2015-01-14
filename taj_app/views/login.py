@@ -42,7 +42,7 @@ def login(request) :
                     temp_sess.delete()
                     user_data.is_login = False
                     user_data.save()
-                    json_obj['error'] = 'Another Login @ ' + str(user_data.last_login_ip) + ". All Sessions Destroyed !!"
+                    json_obj['error'] = 'Already Logged @ ' + str(user_data.last_login_ip) + ". All Sessions Destroyed !!"
                 else :
 
                     #Creating a New Session
@@ -51,8 +51,6 @@ def login(request) :
                     request.session['name'] = user_data.name
 
                     #Updating Table with Login Records
-                    print "Here ", request.session
-                    print Session.objects.all()
                     user_data.is_login = True
                     user_data.last_login_ip = str(request.META['REMOTE_ADDR'])
                     user_data.last_login = timezone.now()

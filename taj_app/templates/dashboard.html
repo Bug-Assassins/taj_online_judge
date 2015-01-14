@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %} Dashboard {% endblock %}
+{% block head %}
+<script type="text/javascript">
+	function check_news()
+	{
+		var x = document.getElementByID("news");
+		if(x.trim() == "")
+		{
+			alert('Please Enter Some News !!');
+			return false;
+		}
+		return true;
+	}
+</script>
+{% endblock %}
+{% block content_heading %} Announcements {% endblock %}
+{% block main_content %}
+    <div style="margin-top: 20px;">
+    	{% if request.session.type == 0 %}
+			<marquee behavior="scroll" direction="up" scrollamount='5' onmouseover="javascript:this.setAttribute('scrollamount','0');" onmouseout="javascript:this.setAttribute('scrollamount','4');">
+    	{% endif %}
+    	<form action="news/delete.php" id="formid" method="post">
+            <table class="taj_news_table" style="width:100%">
+                <tr>
+                    {% if request.session.type > 0 %}
+                    <th>Mark</th>
+                    {% endif %}
+                    <th>Time</th>
+                    <th>News</th>
+                    <th>Author</th>
+                 </tr>
+                 {% for n in news %}
+                 	<tr>
+		             	{% if request.session.type > 0 %}
+		             		<td><input type="checkbox" name="del[]" value="{{n.id}}"></td>
+		             	{% endif %}
+		             	<td>{{news.posted_at}}</td>
+	                    <td class="con">{{news.content}}</td>
+	                    <td>{{news.author}}</td>
+                 	</tr>
+                 {% endfor %}
+            </table>
+            {% if request.session.type > 0 %}
+            	{{ csrf_token }}
+            	<br/>
+            	<input type="submit" name="rem" onclick="return confirm('Are You Sure ??')" value="Remove"/>
+            	<br/>
+            {% endif %}
+        </form>
+        {% if request.session.type == 0 %}
+        	</marquee>
+        {% endif %}
+    </div>
+
+    {% if request.session.type > 0 %}
+    	<form action="news/update.php" method="post">
+            <table class="taj_news_add_table">
+                <tr>
+                    <td><label for="news">NEWS:</label></td>
+                    <td><textarea name="new" id="news" rows="6" cols="40" placeholder="Enter news here"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="add" value="Post News"></td>
+                </tr>
+            </table>
+        </form>
+    {% endif %}
+
+{% endblock %}
