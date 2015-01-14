@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 
 # Created by Ashish Kedia, ashish1294@gmail.com
 # Created on 13th Jan, 2015
@@ -37,3 +38,4 @@ class user(models.Model) :
     is_login = models.BooleanField(default=False)
     last_login = models.DateTimeField(auto_now_add=False, auto_now=False, blank=True, null=True)
     last_login_ip = models.CharField(max_length=20, blank=True, default='0.0.0.0')
+    last_session = models.ForeignKey(Session, null=True)

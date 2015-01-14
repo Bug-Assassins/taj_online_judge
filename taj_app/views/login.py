@@ -2,6 +2,7 @@ from include_module import *
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.utils import timezone
 
 # File Written By Ashish Kedia, ashish1294@gmail.com
 # Created on - 8th January, 2015
@@ -23,8 +24,6 @@ def login(request) :
         #Authenticating User
         u = authenticate(username = loginid, password = password)
 
-        print u
-
         if u is not None :
 
             #Checking User's Account State
@@ -36,24 +35,29 @@ def login(request) :
             elif user_data.account_status == user.INACTIVE :
                 json_obj['error'] = 'Your Account is Inactive !!'
             elif user_data.account_status == user.ACTIVE :
-                print "Account Active"
                 #Checking User's Login Status to prevent concurrent login Sessions
                 if user_data.is_login == True :
+                    temp_sess = user_data.last_session
+                    user_data.last_session = None
+                    temp_sess.delete()
                     user_data.is_login = False
                     user_data.save()
-                    json_obj['error'] = 'Another Login @ ' + str(user_data.last_login_ip)
+                    json_obj['error'] = 'Another Login @ ' + str(user_data.last_login_ip) + ". All Sessions Destroyed !!"
                 else :
-                    print "Final Else"
-                    #Updating Table with Login Records
-                    user_data.is_login = True
-                    user_data.last_login_ip = str(request.META['REMOTE_ADDR'])
-                    user_data.last_login = datetime.datetime.now()
-                    user_data.save()
 
-                    #Deleting Existing sessions if any and creating new one
+                    #Creating a New Session
                     request.session['userid'] = u.username
                     request.session['type'] = user_data.usertype
                     request.session['name'] = user_data.name
+
+                    #Updating Table with Login Records
+                    print "Here ", request.session
+                    print Session.objects.all()
+                    user_data.is_login = True
+                    user_data.last_login_ip = str(request.META['REMOTE_ADDR'])
+                    user_data.last_login = timezone.now()
+                    user_data.last_session = Session.objects.get(pk=request.session.session_key)
+                    user_data.save()
 
                     return HttpResponseRedirect("/dashboard")
         else :
