@@ -3,6 +3,7 @@ from django.core.context_processors import csrf
 from taj_app.models import *
 from django.http import HttpResponseRedirect, HttpResponse
 import datetime
+from django.utils import timezone
 
 # File Written By Ashish Kedia, ashish1294@gmail.com
 # Created on - 8th January, 2015

@@ -2,7 +2,6 @@ from include_module import *
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.utils import timezone
 
 # File Written By Ashish Kedia, ashish1294@gmail.com
 # Created on - 8th January, 2015
@@ -13,7 +12,9 @@ from django.utils import timezone
 
 def login(request) :
     json_obj = {'error' : ''}
+    print "Login - ", Session.objects.all().count()
     if 'userid' in request.session :
+        print "After Login - ", Session.objects.all().count()
         return HttpResponseRedirect("/dashboard")
 
     #Checking if User submitted Login Form
@@ -49,6 +50,7 @@ def login(request) :
                     request.session['userid'] = u.username
                     request.session['type'] = user_data.usertype
                     request.session['name'] = user_data.name
+                    request.session['id'] = user_data.pk
 
                     #Updating Table with Login Records
                     user_data.is_login = True
@@ -60,4 +62,19 @@ def login(request) :
                     return HttpResponseRedirect("/dashboard")
         else :
             json_obj['error'] = 'Invalid UserID or Password !!'
+    print "last - ", Session.objects.all().count()
     return secure_render(request, 'index.html', json_obj)
+
+def logout(request) :
+
+    if 'userid' not in request.session :
+        return HttpResponseRedirect("/dashboard")
+
+    json_obj = {'error' : ''}
+    user_data = user.objects.get(id=request.session['id'])
+    user_data.is_login = False
+    user_data.last_session = None
+    user_data.save()
+    Session.objects.get(pk=request.session.session_key).delete()
+    Session.objects.all().count()
+    return HttpResponseRedirect("/")

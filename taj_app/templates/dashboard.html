@@ -20,7 +20,7 @@
     	{% if request.session.type == 0 %}
 			<marquee behavior="scroll" direction="up" scrollamount='5' onmouseover="javascript:this.setAttribute('scrollamount','0');" onmouseout="javascript:this.setAttribute('scrollamount','4');">
     	{% endif %}
-    	<form action="news/delete.php" id="formid" method="post">
+    	<form action="/dashboard" id="formid" method="post">
             <table class="taj_news_table" style="width:100%">
                 <tr>
                     {% if request.session.type > 0 %}
@@ -35,16 +35,17 @@
 		             	{% if request.session.type > 0 %}
 		             		<td><input type="checkbox" name="del[]" value="{{n.id}}"></td>
 		             	{% endif %}
-		             	<td>{{news.posted_at}}</td>
-	                    <td class="con">{{news.content}}</td>
-	                    <td>{{news.author}}</td>
+		             	{% load tz %}
+		             	<td>{{n.posted_at|localtime}}</td>
+	                    <td class="con">{{n.content}}</td>
+	                    <td>{{n.author}}</td>
                  	</tr>
                  {% endfor %}
             </table>
             {% if request.session.type > 0 %}
-            	{{ csrf_token }}
+            	{% csrf_token %}
             	<br/>
-            	<input type="submit" name="rem" onclick="return confirm('Are You Sure ??')" value="Remove"/>
+            	<input type="submit" name="rem" onclick="return confirm('Are You Sure ??')" value="Remove" class="btn btn-danger"/>
             	<br/>
             {% endif %}
         </form>
@@ -54,7 +55,8 @@
     </div>
 
     {% if request.session.type > 0 %}
-    	<form action="news/update.php" method="post">
+    	<form action="/dashboard" method="post">
+    		{% csrf_token %}
             <table class="taj_news_add_table">
                 <tr>
                     <td><label for="news">NEWS:</label></td>
@@ -62,7 +64,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" name="add" value="Post News"></td>
+                    <td><input type="submit" name="add" value="Post News" class='btn btn-success'></td>
                 </tr>
             </table>
         </form>
