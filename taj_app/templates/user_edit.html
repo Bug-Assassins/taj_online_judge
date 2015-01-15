@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}User Edit{% endblock %}
+{% block head %}
+    <script type="text/javascript">
+        function validate()
+        {
+            var p1 = document.forms["taj_edit_profile"]["taj_user_password"].value.trim();
+            var p2 = document.forms["taj_edit_profile"]["taj_user_password_con"].value.trim();
+            var p3 = document.forms["taj_edit_profile"]["taj_user_name"].value.trim();
+
+            if(p1 == '')
+            {
+                alert('Please Enter Password');
+                return false;
+            }
+            if(p2 == '')
+            {
+                alert('Please Enter Confirm Password');
+                return false;
+            }
+            if(p3 == '')
+            {
+                alert('Please Enter Your Name');
+                return false;
+            }
+            if(p1!==p2)
+            {
+                alert("Password Mis-match");
+                return false;
+            }
+            return true;
+        }
+    </script>
+{% endblock %}
+{% block content_heading %} Edit User {% endblock %}
+{% block main_content %}
+    <form class="taj_edit_profile" id="taj_edit_profile" method="post" onsubmit="return validate()" action="/user/edit/{{uid}}">
+        {% csrf_token %}
+        <table class="taj_view_profile_table">
+            <tr>
+                <td><label>User Id:</label></td>
+                <td><label>{{uid}}</label></td>
+            </tr>
+            {% if request.session.type == 2 %}
+            <tr>
+                <td><label>Account type:</label></td>
+                {% if uid == request.session.userid %}
+                    <td><label>Admin</label></td>
+                {% elif request.session.type == 0 %}
+                    <td>
+                       <div style='display:inline;'><input type="radio" name="account_type" id="account_type_stu" value="0" checked="checked">Student</div>
+                       <div style='display:inline;'><input type="radio" name="account_type" id="account_type_tea" value="1">Teacher</div>
+                    </td>
+                {% elif request.session.type == 1 %}
+                    <td>
+                       <div style='display:inline;'><input type="radio" name="account_type" id="account_type_stu" value="0">Student</div>
+                       <div style='display:inline;'><input type="radio" name="account_type" id="account_type_tea" value="1" checked="checked">Teacher</div>
+                    </td>
+                {% endif %}
+            </tr>
+            {% endif %}
+            <tr>
+                <td><label>Name:</label></td>
+                <td><input type="text" id="taj_user_name" name="taj_user_name" value="{{name}}"></td>
+            </tr>
+            <tr>
+                <td><label for="taj_user_password">Password* :</label></td>
+                <td><input type="password" maxlength="32" id="taj_user_password" name="taj_user_password"></td>
+            </tr>
+            <tr>
+                <td><label for="taj_user_password_con">Confirm Password* :</label></td>
+                <td><input type="password" maxlength="32" id="taj_user_password_con" name="taj_user_password_con"></td>
+            </tr>
+       </table>
+    </form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}User Search{% endblock %}
+{% block head %}
+<script type="text/javascript">
+    function validate()
+    {
+        var uid = document.forms["taj_search_user_form"]["user_id"].value;
+        if(uid==="")
+        {
+            alert("Please Enter a User ID");
+            return false;
+        }
+        return true;
+    }
+</script>
+{% endblock %}
+{% block content_heading %} Search User {% endblock %}
+{% block main_content %}
+
+    {% if error and error != '' %}
+        <div class="taj_search_error">
+            {{error}}
+        </div>
+    {% endif %}
+
+    <form id="taj_search_user_form" name="taj_search_user_form" method="post" onsubmit="return validate()" action="/user/search">
+        {% csrf_token %}
+        <table class="taj_search_user_table">
+            <tr>
+                <td><label for="user_id">Enter User ID: </label></td>
+                <td><input id="user_id" name= "user_id" type="text" maxlength="15"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="sub" value="Search"></td>
+            </tr>
+        </table>
+    </form>
+    
+{% endblock %}
