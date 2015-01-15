@@ -44,7 +44,7 @@ class user(models.Model) :
     is_login = models.BooleanField(default = False)
     last_login = models.DateTimeField(auto_now_add = False, auto_now = False, blank = True, null = True)
     last_login_ip = models.CharField(max_length = 20, blank = True, default = '0.0.0.0')
-    last_session = models.ForeignKey(Session, null=True)
+    last_session = models.ForeignKey(Session, null = True)
 
     def __str__(self) :
         return "Name = %s Type= %s" % (self.name, self.usertype)
@@ -61,8 +61,8 @@ class problem(models.Model) :
     comment = models.TextField()
     author = models.ForeignKey(user)
     added_at = models.DateTimeField(auto_now_add = True, auto_now = False)
-    c_time_limit = models.DecimalField(default = 1.0)
-    java_time_limit = models.DecimalField(default = 2.0)
+    c_time_limit = models.DecimalField(default = 1.0, max_digits = 5, decimal_places = 3)
+    java_time_limit = models.DecimalField(default = 2.0, max_digits = 5, decimal_places = 3)
 
     def __str__(self) :
         return "Id = %s, Name = %s" % (self.id, self.name)
@@ -97,17 +97,20 @@ class submission(models.Model) :
     submitted_at = models.DateTimeField(auto_now_add = True, auto_now = False)
     submitted_by = models.ForeignKey(user)
     problem = models.ForeignKey(problem)
-    language = models.IntegerField(choices=LANGUAGE_CHOICES)
-    result = models.IntegerField(choices=RESULT_CHOICES, default=NOT_EVALUATED)
+    language = models.IntegerField(choices = LANGUAGE_CHOICES)
+    result = models.IntegerField(choices = RESULT_CHOICES, default = NOT_EVALUATED)
 
     def __str__(self) :
         return "%s by %s res = %d" % (self.problem_id, self.submitted_by.name, self.result)
 
-class incidents(models.Model) :
-    DASHBOARD_FORM_INCIDENT = 'Tried to post news as student via manupulating dashboard form !!'
+class incident(models.Model) :
+    DASHBOARD_FORM = 'Hacking News Post Form'
+    INCOMPLETE_SIGNUP_FORM = 'Sending Bad Request on SignUp'
+
     reported_at = models.DateTimeField(auto_now_add = True, auto_now = False)
-    against = models.ForeignKey(user)
+    against = models.ForeignKey(user, null = True)
     content = models.TextField()
+    ip = models.CharField(max_length = 20, null = True)
 
 class bug(models.Model) :
     reported_by = models.ForeignKey(user)

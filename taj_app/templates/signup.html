@@ -6,7 +6,6 @@
         <!--<script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>-->
         <!--<script src="{% static 'js/highcharts.js' %}" type='text/javascript'></script>-->
         <link rel="icon" type="image/png"  href="{% static 'items/crown250.png' %}">
-        <!--<script src="{% static 'js/bootstrap.min.js' %}" type='text/javascript'></script>-->
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.min.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/justified-nav.css'%}">
@@ -15,25 +14,42 @@
         <script type="text/javascript">
             function check_form()
             {
-                var f1 = document.forms["taj_signup_form"]["taj_signup_id"].value;
+                if( (!document.forms["taj_signup_form"]["taj_signup_id"]) ||
+                    (!document.forms["taj_signup_form"]["taj_signup_email"]) ||
+                    (!document.forms["taj_signup_form"]["taj_signup_password"]) ||
+                    (!document.forms["taj_signup_form"]["taj_signup_password_con"]) )
+                {
+                    alert('Warning : Do not play with the source Code !!');
+                    return false;
+                }
+
+                var f1 = document.forms["taj_signup_form"]["taj_signup_id"].value.trim();
                 if(f1==="")
                 {
                     alert("Please enter a desired user id");
                     return false;
                 }
-                var p1 = document.forms["taj_signup_form"]["taj_signup_password"].value;
-                var p2 = document.forms["taj_signup_form"]["taj_signup_password_con"].value;
-                if(p1==="")
+
+                var e1 = document.forms["taj_signup_form"]["taj_signup_email"].value.trim();
+                if(e1 === "")
+                {
+                    alert('Please Enter an Email Id');
+                    return false;
+                }
+
+                var p1 = document.forms["taj_signup_form"]["taj_signup_password"].value.trim();
+                var p2 = document.forms["taj_signup_form"]["taj_signup_password_con"].value.trim();
+                if(p1 === "")
                 {
                     alert("Please enter your password");
                     return false;
                 }
-                if(p2==="")
+                if(p2 === "")
                 {
                     alert("Please enter your password again to confirm");
                     return false;
                 }
-                if(p1!==p2)
+                if(p1 !== p2)
                 {
                     alert("Password Mis-match");
                     return false;

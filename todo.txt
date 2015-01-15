@@ -27,3 +27,4 @@ System
 
 *******************************************************
 Add Cronjob for clear session
+Add utility menthods to clear incidents, bugs, users - Ideally make it configurable from settings file

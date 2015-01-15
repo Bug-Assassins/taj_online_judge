@@ -11,18 +11,23 @@ from django.contrib.auth import authenticate
 - Tyler Durden, Fight Club'''
 
 def login(request, succ = 0, err = 0) :
-    json_obj = {'error' : ''}
-
-    if succ == 1 :
-        json_obj['error'] = 'User Successfully Registered'
-    elif succ == 2:
-        json_obj['error'] = 'Successfully Logged Out !!'
-    elif err == 1 :
-        json_obj['error'] = 'Please Login to Continue !!'
-
 
     if 'userid' in request.session :
         return HttpResponseRedirect("/dashboard")
+
+    json_obj = {'error' : ''}
+
+    try :
+        succ = int(succ)
+        err = int(err)
+        if succ == 1 :
+            json_obj['error'] = 'User Successfully Registered'
+        elif succ == 2:
+            json_obj['error'] = 'Successfully Logged Out !!'
+        elif err == 1 :
+            json_obj['error'] = 'Please Login to Continue !!'
+    except Error as e :
+        print "Some Error Has been Caught !! ~ login.py"
 
     #Checking if User submitted Login Form
     if 'loginid' in request.POST and 'password' in request.POST:
@@ -58,6 +63,8 @@ def login(request, succ = 0, err = 0) :
                     request.session['type'] = user_data.usertype
                     request.session['name'] = user_data.name
                     request.session['id'] = user_data.pk
+                    print "Just Checking -", request.session['userid'], " ", Session.objects.all().count()
+                    print "key ", request.session.session_key
 
                     #Updating Table with Login Records
                     user_data.is_login = True
@@ -83,4 +90,4 @@ def logout(request) :
     user_data.last_session = None
     user_data.save()
     Session.objects.get(pk=request.session.session_key).delete()
-    return HttpResponseRedirect("/succ/2")
+    return HttpResponseRedirect("/success/2")

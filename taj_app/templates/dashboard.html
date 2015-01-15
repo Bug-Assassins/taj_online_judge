@@ -1,18 +1,44 @@
 {% extends "base.html"%}
 {% block title %} Dashboard {% endblock %}
 {% block head %}
-<script type="text/javascript">
-	function check_news()
-	{
-		var x = document.getElementByID("news");
-		if(x.trim() == "")
-		{
-			alert('Please Enter Some News !!');
-			return false;
-		}
-		return true;
-	}
-</script>
+    {% if request.session.type > 0 %}
+        <script type="text/javascript">
+        	function check_news()
+        	{
+        		var x = document.getElementByID("news");
+        		if(x.trim() == "")
+        		{
+        			alert('Please Enter Some News !!');
+        			return false;
+        		}
+        		return true;
+        	}
+
+            function select_all_news()
+            {
+                var box = document.getElementsByTagName('input');
+                for(var i = 0; i < box.length; i++)
+                {
+                    if(box[i].type == 'checkbox')
+                    {
+                        box[i].checked = true;
+                    }
+                }
+            }
+
+            function unselect_all_news()
+            {
+                var box = document.getElementsByTagName('input');
+                for(var i = 0; i < box.length; i++)
+                {
+                    if(box[i].type == 'checkbox')
+                    {
+                        box[i].checked = false;
+                    }
+                }
+            }
+        </script>
+    {% endif %}
 {% endblock %}
 {% block content_heading %} Announcements {% endblock %}
 {% block main_content %}
@@ -24,7 +50,7 @@
             <table class="taj_news_table" style="width:100%">
                 <tr>
                     {% if request.session.type > 0 %}
-                    <th>Mark</th>
+                        <th>Mark</th>
                     {% endif %}
                     <th>Time</th>
                     <th>News</th>
@@ -46,6 +72,8 @@
             	{% csrf_token %}
             	<br/>
             	<input type="submit" name="rem" onclick="return confirm('Are You Sure ??')" value="Remove" class="btn btn-danger"/>
+                <a onclick="select_all_news()" id="taj_select_all_news" class='btn btn-warning'>Select All</a>
+                <a onclick="unselect_all_news()" id="taj_select_all_news" class='btn btn-primary'>Unselect All</a>
             	<br/>
             {% endif %}
         </form>

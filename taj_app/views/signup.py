@@ -9,6 +9,15 @@ from include_module import *
 '''The training is nothing. The will is everything. The will to act.
 - Ras al Ghul, Batman Begins'''
 
+def check_request_signup(request) :
+    if 'taj_signup_id' in request.POST and 'taj_signup_email' in request.POST and 'taj_signup_name' in request.POST \
+    and 'taj_signup_password' in request.POST and 'taj_signup_password_con' in request.POST :
+        return True
+    else :
+        signup_inci = incident(content = incident.INCOMPLETE_SIGNUP_FORM, ip = request.META['REMOTE_ADDR'])
+        signup_inci.save()
+        return False
+
 def signup(request) :
     json_obj = {'error' : '', 'user_id' : '', 'name' : '', 'email' : ''}
 
@@ -16,53 +25,52 @@ def signup(request) :
         return HttpResponseRedirect("/dashboard")
 
     if 'taj_signup_id' in request.POST:
+        form_stat = check_request_signup(request)
         error = ''
         user_id = ''
-        if 'taj_signup_id' in request.POST and request.POST['taj_signup_id'] :
+
+        if form_stat == True :
             user_id = str(request.POST['taj_signup_id']).strip()
-        if user_id == '':
-            error = "Please Enter User ID"
+            if user_id == '':
+                error = "Please Enter User ID"
 
-        email = ''
-        if 'taj_signup_email' in request.POST and request.POST['taj_signup_email'] :
             email = str(request.POST['taj_signup_email']).strip()
-        if email == '' and error == '':
-            error = 'Please Enter Email ID'
+            if email == '' and error == '':
+                error = 'Please Enter Email ID'
 
-        name = ''
-        if 'taj_signup_name' in request.POST and request.POST['taj_signup_name'] :
             name = str(request.POST['taj_signup_name']).strip()
-        if name == '' and error == '':
-            error = 'Please Enter Your Name'
+            if name == '' and error == '':
+                error = 'Please Enter Your Name'
 
-        password = ''
-        if 'taj_signup_password' in request.POST and request.POST['taj_signup_password'] :
             password = str(request.POST['taj_signup_password']).strip()
-        if password == '' and error == '' :
-            error = 'Please Enter Password'
+            if password == '' and error == '' :
+                error = 'Please Enter Password'
 
-        password_con = ''
-        if 'taj_signup_password_con' in request.POST and request.POST['taj_signup_password_con'] :
+        
             password_con = str(request.POST['taj_signup_password_con']).strip()
-        if password_con == '' and error == '' :
-            error = 'Please Enter Confirmation Password'
+            if password_con == '' and error == '' :
+                error = 'Please Enter Confirmation Password'
 
-        if password != password_con and error == '':
-            error = 'Password Mismatch'
+            if password != password_con and error == '':
+                error = 'Password Mismatch'
+
+            if error == '' :
+                try :
+                    new_user = User.objects.create_user(username=user_id, password=password, email=email)
+                    u = user(name=name, user=new_user, email=email, uname=user_id)
+                    u.save()
+                except IntegrityError as e:
+                    error = 'A user with given details already exist !!'
+                except Error as e:
+                    error = 'Cannot Create User at the moment !!'
+
+            json_obj = {'error': error, 'user_id': user_id, 'email': email, 'name': name}
+
+        else :
+            error = 'Your Hack was detected and reported !!'
+            json_obj['error'] = error
 
         if error == '' :
-            try :
-                new_user = User.objects.create_user(username=user_id, password=password, email=email)
-                u = user(name=name, user=new_user, email=email, uname=user_id)
-                u.save()
-            except IntegrityError as e:
-                error = 'A user with given details already exist !!'
-            except Error as e:
-                error = 'Cannot Create User at the moment !!'
-
-        json_obj = {'error': error, 'user_id': user_id, 'email': email, 'name': name}
-
-        if error == '' :
-            return HttpResponseRedirect('/success/1')
+                return HttpResponseRedirect('/success/1')
 
     return secure_render(request, 'signup.html', json_obj)

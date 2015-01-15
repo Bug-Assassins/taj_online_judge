@@ -21,5 +21,5 @@ urlpatterns = patterns('',
     url(r'^signup/?$', signup),
     url(r'^dashboard/?$', dashboard),
     url(r'^logout/?$', logout),
-    urls(r'^user/([a-zA-Z0-9_])/?$', user),
+    url(r'^users/([a-zA-Z0-9_]+)/?$', view_user),
 )

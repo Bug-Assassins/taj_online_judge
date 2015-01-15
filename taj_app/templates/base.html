@@ -26,14 +26,14 @@
                     <li><a href='/dashboard'><div> Dashboard </div></a></li>
                     {% if request.session.type == 0 %}
 
-                        <li><a href='/user/{{request.session.userid}}'><div>Profile</div></a></li>
+                        <li><a href='/users/{{request.session.userid}}'><div>Profile</div></a></li>
                         <li><a href='/problem'><div>Problem Arena</div></a></li>
                         <!--<li><a href='/assignment'><div>Assignment Arena</div></a></li>-->
                         <li><a href='/submissions'><div>Submissions</div></a></li>
 
                     {% elif request.session.type == 1 %}
 
-                        <li><a href='/user/{{request.session.userid}}'><div>Profile</div></a>
+                        <li><a href='/users/{{request.session.userid}}'><div>Profile</div></a>
                         <li><a href='/problem'><div>Problem Arena</div></a></li>
                         <!--<li><a href='assignment.php'><div>Assignment Arena</div></a></li>
                         <li><a href='manage_assignment.php'><div>Manage Assignment</div></a></li>-->
@@ -41,7 +41,7 @@
 
                     {% elif request.session.type == 1 %}
 
-                        <li><a href='/user/{{request.session.userid}}'><div>Profile</div></a>
+                        <li><a href='/users/{{request.session.userid}}'><div>Profile</div></a>
                         <li><a href='/problem'><div>Problem Arena</div></a></li>
                         <!--<li><a href='assignment.php'><div>Assignment Arena</div></a></li>
                         <li><a href='manage_assignment.php'><div>Manage Assignment</div></a></li>-->

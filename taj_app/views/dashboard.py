@@ -8,6 +8,14 @@ from include_module import *
 good thing ever dies. Fear can hold you prisoner, hope can set you free
 - Andy Dufresne, The Shawshank Redemption'''
 
+def check_incident(request) :
+    if request.session['type'] == user.STUDENT :
+        dash_inci = incident(against_id = request.session['id'], content = incident.DASHBOARD_FORM, ip = request.META['REMOTE_ADDR'])
+        dash_inci.save()
+        return False
+    else :
+        return True
+
 def dashboard(request) :
 
     if 'userid' not in request.session :
@@ -15,21 +23,13 @@ def dashboard(request) :
 
     json_obj = {'news' : []}
 
-    if 'new' in request.POST :
-        if request.session.type == user.STUDENT :
-            dash_inci = incident(against_id = request.session['id'], content = incident.DASHBOARD_FORM_INCIDENT)
-            dash_inci.save()
-        else :
-            posted_news = news(posted_at = timezone.now(), content = request.POST['new'], author_id = request.session['id'])
-            posted_news.save()
+    if 'new' in request.POST and check_incident(request):
+        posted_news = news(posted_at = timezone.now(), content = request.POST['new'], author_id = request.session['id'])
+        posted_news.save()
 
-    if 'del' in request.POST :
-        if request.session.type == user.STUDENT :
-            dash_inci = incident(against_id = request.session['id'], content = incident.DASHBOARD_FORM_INCIDENT)
-            dash_inci.save()
-        else :
-            for n in request.POST['del'] :
-                news.objects.get(id=n.id).delete()
+    if 'del' in request.POST and check_incident(request):
+        for n in request.POST['del'] :
+            news.objects.get(id=n.id).delete()
 
     for n in news.objects.all() :
         json_obj['news'].append({'id' : n.id, 'posted_at' : n.posted_at, 'content' : n.content, 'author' : n.author.name})
