@@ -9,3 +9,21 @@ GUI Changes
 Use Ajax
 Use Relative Sizes.
 Use Jquery for form Validation
+
+
+*******************************************************
+
+Business Logic
+
+*******************************************************
+
+Add Error for each Session or else the app gives Server Error 500 !!
+Add better Database Error Handling by enclosing all object accesss in try - except
+Add Db trigger codes
+
+*******************************************************
+
+System
+
+*******************************************************
+Add Cronjob for clear session

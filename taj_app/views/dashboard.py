@@ -11,7 +11,7 @@ good thing ever dies. Fear can hold you prisoner, hope can set you free
 def dashboard(request) :
 
     if 'userid' not in request.session :
-        return HttpResponseRedirect("/dashboard")
+        return HttpResponseRedirect("/")
 
     json_obj = {'news' : []}
 

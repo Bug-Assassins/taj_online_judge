@@ -1,49 +1,66 @@
 {% extends "base.html"%}
 {% block title %} Profile {% endblock %}
-{% block head %}{% endblock %}
+{% block head %} {% endblock %}
 {% block content_heading %}
 {% if request.session.type == 0 %}
-	Student
+    Student
 {% elif request.session.type == 1 %}
-	Teacher
+    Teacher
 {% elif request.session.type == 2 %}
-	Administrator
+    Administrator
 {% endif %}
 {% endblock %}
 {% block main_content %}
-	<div class="taj_profile_buttons">
+    <div class="taj_profile_buttons">
         <a href="/user/search"><button>Search User</button></a>
         {% if request.session.userid == uid or request.seesion.type == 2 %}
-        	<a href="/user/edit/{{uid}}"><button>Edit Profile</button></a>
+            <a href="/user/edit/{{uid}}"><button>Edit Profile</button></a>
         {% endif %}
     </div>
     <table class="taj_view_profile_table">
         <tr>
             <td><label>User Id:</label></td>
-            <td><label><?php echo $resultarr['userid'];?></label></td>
+            <td><label>{{uid}}</label></td>
         </tr>
         <tr>
             <td><label>User name:</label></td>
-            <td><label><?php echo $resultarr['name'];?></label></td>
+            <td><label>{{name}}</label></td>
         </tr>
         <tr>
             <td><label>Email:</label></td>
-            <td><label><?php echo $resultarr['email'];?></label></td>
+            <td><label>{{email}}</label></td>
         </tr>
         <tr>
             <td><label>List of problems:</label></td>
             <td>
-                <a href="<?php echo $pathpre ?>problem/view_problem.php?pid=<?php echo $probres['problemid'] ?>"><?php echo $probres['problemid'] ?></a>
-                <?php
-                while($probres=mysql_fetch_array($problems))
-                {
-                    echo ","
-                    ?>
-                    <a href="<?php echo $pathpre ?>problem/view_problem.php?pid=<?php echo $probres['problemid'] ?>"><?php echo $probres['problemid'] ?></a>   
-                    <?php
-                }
-                ?>  
+                {% for prob in problems_solved %}
+                    {% if forloop.counter > 0 %}
+                        ,
+                    {% endif %}
+                    <a href="problems/view_problem/{{problemid}}">{{prob.id}}</a>
+                {% endfor %}
             </td>
         </tr>
     </table>
+    <div class="taj_profile_stats">
+        <table class="taj_submission_table">
+            <tr>
+                <th>Problems solved</th>
+                <th>Solutions submitted</th>
+                <th>Wrong Answers</th>
+                <th>Errors</th>
+            </tr>
+            <tr>
+                <td>{{solved}}}</td>
+                <td>{{submitted}}</td>
+                <td>{{wrong_ans}}</td>
+                <td>{{error}}</td>
+            </tr>
+        </table> 
+    </div>
+    {% if error and error != '' %}
+        <script type="text/javascript">
+            alert('{{error}}');
+        </script>
+    {% endif %}
 {% endblock %}
