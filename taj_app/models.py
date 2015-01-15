@@ -8,6 +8,7 @@ from django.contrib.sessions.models import Session
 
 '''You are not haunted by the war, you miss it!
 - Sherlock Holmes, Season 1'''
+
 class user(models.Model) :
     STUDENT = 0
     TEACHER = 1

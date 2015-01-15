@@ -8,6 +8,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
+# File Created by Ashish Kedia, ashish1294@gmail.com
+# Created on 6th Jan, 2015
+# Last Modified on 15th Jan, 2015
+
+'''Happiness is always a choice you have. Happiness is sharing. Even with a
+pet or a plant or a headphone. Happiness is easy. It's just a change of mind.
+You don't need solitude to be happy, all you need is a sense of good choice'''
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from django.conf import global_settings

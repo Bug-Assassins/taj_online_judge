@@ -1,0 +1,49 @@
+{% extends "base.html"%}
+{% block title %} Profile {% endblock %}
+{% block head %}{% endblock %}
+{% block content_heading %}
+{% if request.session.type == 0 %}
+	Student
+{% elif request.session.type == 1 %}
+	Teacher
+{% elif request.session.type == 2 %}
+	Administrator
+{% endif %}
+{% endblock %}
+{% block main_content %}
+	<div class="taj_profile_buttons">
+        <a href="/user/search"><button>Search User</button></a>
+        {% if request.session.userid == uid or request.seesion.type == 2 %}
+        	<a href="/user/edit/{{uid}}"><button>Edit Profile</button></a>
+        {% endif %}
+    </div>
+    <table class="taj_view_profile_table">
+        <tr>
+            <td><label>User Id:</label></td>
+            <td><label><?php echo $resultarr['userid'];?></label></td>
+        </tr>
+        <tr>
+            <td><label>User name:</label></td>
+            <td><label><?php echo $resultarr['name'];?></label></td>
+        </tr>
+        <tr>
+            <td><label>Email:</label></td>
+            <td><label><?php echo $resultarr['email'];?></label></td>
+        </tr>
+        <tr>
+            <td><label>List of problems:</label></td>
+            <td>
+                <a href="<?php echo $pathpre ?>problem/view_problem.php?pid=<?php echo $probres['problemid'] ?>"><?php echo $probres['problemid'] ?></a>
+                <?php
+                while($probres=mysql_fetch_array($problems))
+                {
+                    echo ","
+                    ?>
+                    <a href="<?php echo $pathpre ?>problem/view_problem.php?pid=<?php echo $probres['problemid'] ?>"><?php echo $probres['problemid'] ?></a>   
+                    <?php
+                }
+                ?>  
+            </td>
+        </tr>
+    </table>
+{% endblock %}
