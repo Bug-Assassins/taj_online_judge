@@ -10,16 +10,23 @@ from django.contrib.auth import authenticate
 '''It's only after we've lost everything that we're free to do anything
 - Tyler Durden, Fight Club'''
 
-def login(request) :
+def login(request, succ = 0, err = 0) :
     json_obj = {'error' : ''}
-    print "Login - ", Session.objects.all().count()
+
+    if succ == 1 :
+        json_obj['error'] = 'User Successfully Registered'
+    elif succ == 2:
+        json_obj['error'] = 'Successfully Logged Out !!'
+    elif err == 1 :
+        json_obj['error'] = 'Please Login to Continue !!'
+
+
     if 'userid' in request.session :
-        print "After Login - ", Session.objects.all().count()
         return HttpResponseRedirect("/dashboard")
 
     #Checking if User submitted Login Form
-    if 'loginid' in request.POST :
-        loginid = request.POST['loginid']
+    if 'loginid' in request.POST and 'password' in request.POST:
+        loginid = request.POST['loginid'].strip()
         password = request.POST['password']
 
         #Authenticating User
@@ -62,13 +69,13 @@ def login(request) :
                     return HttpResponseRedirect("/dashboard")
         else :
             json_obj['error'] = 'Invalid UserID or Password !!'
-    print "last - ", Session.objects.all().count()
+
     return secure_render(request, 'index.html', json_obj)
 
 def logout(request) :
 
     if 'userid' not in request.session :
-        return HttpResponseRedirect("/dashboard")
+        return HttpResponseRedirect("/err/1")
 
     json_obj = {'error' : ''}
     user_data = user.objects.get(id=request.session['id'])
@@ -76,5 +83,4 @@ def logout(request) :
     user_data.last_session = None
     user_data.save()
     Session.objects.get(pk=request.session.session_key).delete()
-    Session.objects.all().count()
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect("/succ/2")

@@ -16,7 +16,10 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', login),
-    url(r'^signup$', signup),
-    url(r'^dashboard$', dashboard),
-    url(r'^logout$', logout),
+    url(r'^success/(?P<succ>\d{1})/?$', login),
+    url(r'^err/(?P<err>\d{1})/?$', login),
+    url(r'^signup/?$', signup),
+    url(r'^dashboard/?$', dashboard),
+    url(r'^logout/?$', logout),
+    urls(r'^user/([a-zA-Z0-9_])/?$', user),
 )
