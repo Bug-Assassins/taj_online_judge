@@ -1,0 +1,179 @@
+<!--
+/* 
+ * Copyright (C) 2014 Ashish Kedia
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * This file is a part of TAJ Online Judge, developed
+ * @National Institute of Technology Karnataka, Surathkal
+ */
+-->
+.taj_problemaddtable {
+  position: relative;
+  margin: auto;
+  width:max-content;
+  padding-right: 32px;
+  font-weight: 300;
+  color: #a8a7a8;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+.taj_submit_solution_table {
+  position: relative;
+  margin: auto;
+  width:max-content;
+  padding-right: 32px;
+  font-weight: 300;
+  color: #a8a7a8;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+input, label, textarea {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+input[type=text], input[type=password],textarea {
+  padding: 0 10px;
+  width: 400px;
+  height: 40px;
+  color: #bbb;
+  text-shadow: 1px 1px 1px black;
+  background: rgba(0, 0, 0, 0.16);
+  border: 0;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+textarea{
+    height:300px;
+}
+input[type=text]:focus, input[type=password]:focus, textarea {
+  color: white;
+  background: rgba(0, 0, 0, 0.1);
+  outline: 0;
+}
+
+label {
+  float: left;
+  width:max-content;
+  line-height: 40px;
+  padding-right: 10px;
+  font-weight: 100;
+  text-align: right;
+  letter-spacing: 1px;
+}
+.taj_addproberror{
+    margin-top: 20px;
+    width: 100%;
+    color: red;
+    text-align: center;
+    font-size: 25px;
+}
+.taj_problem_statement, .taj_problem_comment, .taj_problem_author, .taj_problem_lang, .taj_problem_time_add,.taj_problem_isjudge,
+.taj_problem_time_limit, .taj_problem_mem_limit{
+    width: 100%;
+    color: whitesmoke;
+    margin-top: 20px;
+}
+.taj_problem_control_view form{
+    display: inline;
+}
+.taj_problem_message{
+    color:red;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+.taj_problem_list{
+    width:auto;
+    margin-top: 20px;
+}
+.taj_problem_list_heading td{
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.taj_problem_list_heading td a{
+    color:hotpink;
+}
+.taj_problem_list td{
+    color:whitesmoke;
+    border: solid wheat 1px;
+}
+.taj_problist_idtd{
+    width:max-content;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.taj_problist_subtd{
+    width:max-content;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.taj_problist_nametd{
+    width:100%;
+    text-align: left;
+    padding-left: 10px;
+}
+.taj_problist_idtd a, .taj_problist_nametd a{
+    color: whitesmoke;
+}
+.taj_problist_idtd a:hover, .taj_problist_nametd a:hover{
+    color:dodgerblue;
+}
+.taj_problem_control_list{
+    margin-top: 15px;
+}
+.taj_problem_control_list a{
+    color: whitesmoke;
+    font-size: 20px;
+    margin-right: 20px;
+    text-decoration: none;
+}
+.taj_problem_control_list a:hover{
+    color: dodgerblue;
+    text-decoration: underline;
+}
+.taj_problem_edit_table{
+  position: relative;
+  margin: auto;
+  width:max-content;
+  padding-right: 32px;
+  font-weight: 300;
+  color: #a8a7a8;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+.taj_search_prob_table{
+  position: relative;
+  margin: auto;
+  width:max-content;
+  padding-right: 32px;
+  font-weight: 300;
+  color: #a8a7a8;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+.taj_search_error{
+    color:red;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+}

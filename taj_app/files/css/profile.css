@@ -1,0 +1,145 @@
+<!--
+/* 
+ * Copyright (C) 2014 Adarsh Mohata
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * This file is a part of TAJ Online Judge, developed
+ * @National Institute of Technology Karnataka, Surathkal
+ */
+-->
+.taj_view_profile_table{
+    position: relative;
+  margin: 30px auto;
+  width:max-content;
+  padding-right: 32px;
+  font-weight: 300;
+  color: #a8a7a8;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+.taj_view_profile_table td{
+    width: max-content;
+}
+.taj_view_profile_table td a{
+    color: whitesmoke;
+    text-decoration: none;
+}
+.taj_view_profile_table td a:hover{
+    color: dodgerblue;
+}
+.taj_view_profile_table label {
+  float: left;
+  width:max-content;
+  line-height: 40px;
+  padding-right: 10px;
+  font-weight: 100;
+  text-align: right;
+  letter-spacing: 1px;
+}
+.taj_profile_stats{
+    margin: 50px auto;
+    width:max-content;
+    alignment-adjust: central;
+}
+.taj_submission_table{
+    margin: auto;
+    alignment-adjust: central;
+}
+.taj_submission_table th{
+   border:1px solid white; 
+   color:cyan;  
+   padding:15px;
+   
+}
+.taj_submission_table td{
+    
+    border:1px solid white; 
+    text-align: center;
+    color:crimson;  
+    padding:15px;
+}
+.taj_profile_buttons button{
+    margin-right:2em;
+    float:right;
+    height:3em;
+    width:8em;
+}
+.taj_profile_buttons a{
+    text-decoration: none;
+    color:black;
+}
+.taj_search_user_table{
+  position: relative;
+  margin: auto;
+  width:max-content;
+  padding-right: 32px;
+  font-weight: 300;
+  color: #a8a7a8;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+label {
+  float: left;
+  width:max-content;
+  line-height: 40px;
+  padding-right: 10px;
+  font-weight: 100;
+  text-align: right;
+  letter-spacing: 1px;
+}
+input, label, textarea {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+input[type=text], input[type=password],textarea {
+  padding: 0 10px;
+  width: 400px;
+  height: 40px;
+  color: #bbb;
+  text-shadow: 1px 1px 1px black;
+  background: rgba(0, 0, 0, 0.16);
+  border: 0;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+textarea{
+    height:300px;
+}
+input[type=text]:focus, input[type=password]:focus, textarea {
+  color: white;
+  background: rgba(0, 0, 0, 0.1);
+  outline: 0;
+}
+
+.taj_search_error{
+    color:red;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+taj_view_profile_table td button{
+    
+    //margin-right:2em;
+    //float:right;
+    height:3em;
+    width:8em;
+}
