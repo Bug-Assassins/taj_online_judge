@@ -15,9 +15,9 @@
 {% endblock %}
 {% block main_content %}
     <div class="taj_profile_buttons">
-        <a href="/users/search"><button>Search User</button></a>
+        <a href="/users/search"><button class='btn btn-primary'>Search User</button></a>
         {% if request.session.userid == uid or request.seesion.type == 2 %}
-            <a href="/users/edit/{{uid}}"><button>Edit Profile</button></a>
+            <a href="/users/edit/{{uid}}"><button class='btn btn-warning'>Edit Profile</button></a>
         {% endif %}
     </div>
     <table class="taj_view_profile_table">

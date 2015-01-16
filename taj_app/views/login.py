@@ -40,7 +40,7 @@ def login(request, succ = 0, err = 0) :
         if u is not None :
 
             #Checking User's Account State
-            user_data = user.objects.get(user=u)
+            user_data = user.objects.get(user = u)
             if user_data.account_status == user.PERMANENTLY_DISABLED :
                 json_obj['error'] = 'Your Account has been Permanently Disabled !!'
             elif user_data.account_status == user.TEMPORARILY_DISABLED :

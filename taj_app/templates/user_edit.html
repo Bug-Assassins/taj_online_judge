@@ -4,6 +4,13 @@
     <script type="text/javascript">
         function validate()
         {
+            if( (!document.forms["taj_edit_profile"]["taj_user_password"]) ||
+                (!document.forms["taj_edit_profile"]["taj_user_password_con"]) ||
+                (!document.forms["taj_edit_profile"]["taj_user_name"]))
+            {
+                alert('Warning: Please do not modify Source Code !!');
+                return false;
+            }
             var p1 = document.forms["taj_edit_profile"]["taj_user_password"].value.trim();
             var p2 = document.forms["taj_edit_profile"]["taj_user_password_con"].value.trim();
             var p3 = document.forms["taj_edit_profile"]["taj_user_name"].value.trim();
@@ -46,12 +53,12 @@
                 <td><label>Account type:</label></td>
                 {% if uid == request.session.userid %}
                     <td><label>Admin</label></td>
-                {% elif request.session.type == 0 %}
+                {% elif account_type == 0 %}
                     <td>
                        <div style='display:inline;'><input type="radio" name="account_type" id="account_type_stu" value="0" checked="checked">Student</div>
                        <div style='display:inline;'><input type="radio" name="account_type" id="account_type_tea" value="1">Teacher</div>
                     </td>
-                {% elif request.session.type == 1 %}
+                {% elif account_type == 1 %}
                     <td>
                        <div style='display:inline;'><input type="radio" name="account_type" id="account_type_stu" value="0">Student</div>
                        <div style='display:inline;'><input type="radio" name="account_type" id="account_type_tea" value="1" checked="checked">Teacher</div>
@@ -70,6 +77,13 @@
             <tr>
                 <td><label for="taj_user_password_con">Confirm Password* :</label></td>
                 <td><input type="password" maxlength="32" id="taj_user_password_con" name="taj_user_password_con"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="sub" value="Save">
+                    <a href="/users/view/{{uid}}"><button class="btn btn-warning">Cancel</button></a>
+                </td>
+                <td></td>
             </tr>
        </table>
     </form>

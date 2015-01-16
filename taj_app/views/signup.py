@@ -9,6 +9,7 @@ from include_module import *
 '''The training is nothing. The will is everything. The will to act.
 - Ras al Ghul, Batman Begins'''
 
+# A utility function that ensures that all the fields are properly submitted via form
 def check_request_signup(request) :
     if 'taj_signup_id' in request.POST and 'taj_signup_email' in request.POST and 'taj_signup_name' in request.POST \
     and 'taj_signup_password' in request.POST and 'taj_signup_password_con' in request.POST :
@@ -24,7 +25,7 @@ def signup(request) :
     if 'userid' in request.session :
         return HttpResponseRedirect("/dashboard")
 
-    if 'taj_signup_id' in request.POST:
+    if 'taj_signup_but' in request.POST:
         form_stat = check_request_signup(request)
         error = ''
         user_id = ''
@@ -67,7 +68,7 @@ def signup(request) :
             json_obj = {'error': error, 'user_id': user_id, 'email': email, 'name': name}
 
         else :
-            error = 'Your Hack was detected and reported !!'
+            error = incident.HACK_MSG
             json_obj['error'] = error
 
         if error == '' :

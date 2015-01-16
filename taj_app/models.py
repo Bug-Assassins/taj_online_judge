@@ -13,6 +13,7 @@ from django.contrib.sessions.models import Session
 - Sherlock Holmes, Season 1'''
 
 class user(models.Model) :
+
     STUDENT = 0
     TEACHER = 1
     ADMIN = 2
@@ -49,12 +50,16 @@ class user(models.Model) :
     def __str__(self) :
         return "Name = %s Type= %s" % (self.name, self.usertype)
     
+
 class news(models.Model) :
+
     posted_at = models.DateTimeField(auto_now_add = True, auto_now = False)
     content = models.CharField(max_length = 500)
     author = models.ForeignKey(user)
 
+
 class problem(models.Model) :
+
     id = models.CharField(max_length = 15, primary_key = True)
     name = models.CharField(max_length = 200, unique = True)
     statement = models.TextField()
@@ -67,7 +72,9 @@ class problem(models.Model) :
     def __str__(self) :
         return "Id = %s, Name = %s" % (self.id, self.name)
 
+
 class submission(models.Model) :
+
     C_LANG = 0
     CPP_LANG = 1
     JAVA_LANG = 2
@@ -103,16 +110,22 @@ class submission(models.Model) :
     def __str__(self) :
         return "%s by %s res = %d" % (self.problem_id, self.submitted_by.name, self.result)
 
+
 class incident(models.Model) :
+
+    HACK_MSG = 'Your Hack Was Detected and Reported'
     DASHBOARD_FORM = 'Hacking News Post Form'
     INCOMPLETE_SIGNUP_FORM = 'Sending Bad Request on SignUp'
+    INCOMPLETE_SEARCH_FORM = 'Sending Bad Request on User Search'
 
     reported_at = models.DateTimeField(auto_now_add = True, auto_now = False)
     against = models.ForeignKey(user, null = True)
     content = models.TextField()
     ip = models.CharField(max_length = 20, null = True)
 
+
 class bug(models.Model) :
+
     reported_by = models.ForeignKey(user)
     reported_at = models.DateTimeField(auto_now_add = True, auto_now = False)
     content = models.TextField()

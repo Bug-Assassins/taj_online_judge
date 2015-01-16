@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 {% block title %}User Search{% endblock %}
 {% block head %}
-<script type="text/javascript">
-    function validate()
-    {
-        var uid = document.forms["taj_search_user_form"]["user_id"].value;
-        if(uid==="")
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+    <script type="text/javascript">
+        function validate()
         {
-            alert("Please Enter a User ID");
-            return false;
+            var uid = document.forms["taj_search_user_form"]["user_id"].value;
+            if(!uid)
+            {
+                alert('Warning : Do not play with the source code !!');
+                return false;
+            }
+            if(uid==="")
+            {
+                alert("Please Enter a User ID");
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>
 {% endblock %}
 {% block content_heading %} Search User {% endblock %}
 {% block main_content %}
@@ -23,7 +30,7 @@
         </div>
     {% endif %}
 
-    <form id="taj_search_user_form" name="taj_search_user_form" method="post" onsubmit="return validate()" action="/user/search">
+    <form id="taj_search_user_form" name="taj_search_user_form" method="post" onsubmit="return validate()" action="/users/search">
         {% csrf_token %}
         <table class="taj_search_user_table">
             <tr>
@@ -32,7 +39,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" name="sub" value="Search"></td>
+                <td><input type="submit" class="btn btn-info" name="taj_search_submit" value="Search"></td>
             </tr>
         </table>
     </form>
