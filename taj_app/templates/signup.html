@@ -30,10 +30,18 @@
                     return false;
                 }
 
-                var e1 = document.forms["taj_signup_form"]["taj_signup_email"].value.trim();
+                var e1 = document.forms["taj_signup_form"]['taj_signup_email'].value.trim();
                 if(e1 === "")
                 {
                     alert('Please Enter an Email Id');
+                    return false;
+                }
+
+                var regex = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+
+                if(!e1.match(regex))
+                {
+                    alert('Please Enter a valid Email Address');
                     return false;
                 }
 
@@ -83,7 +91,7 @@
                 </tr>
                 <tr>
                     <td><label for="taj_signup_email">Email :</label></td>
-                    <td><input type="text" id="taj_signup_email" name="taj_signup_email" value="{{email}}"></td>
+                    <td><input type="email" id="taj_signup_email" name="taj_signup_email" value="{{email}}"></td>
                 </tr>
                 <tr>
                     <td><label for="taj_signup_password">Password* :</label></td>

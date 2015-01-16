@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}User Edit{% endblock %}
 {% block head %}
+{% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
     <script type="text/javascript">
         function validate()
         {
@@ -41,7 +43,12 @@
 {% endblock %}
 {% block content_heading %} Edit User {% endblock %}
 {% block main_content %}
-    <form class="taj_edit_profile" id="taj_edit_profile" method="post" onsubmit="return validate()" action="/user/edit/{{uid}}">
+    {% if error and error != '' %}
+        <div class="taj_search_error">
+            {{error}}
+        </div>
+    {% endif %}
+    <form class="taj_edit_profile" id="taj_edit_profile" method="post" onsubmit="return validate()" action="/users/edit/{{uid}}">
         {% csrf_token %}
         <table class="taj_view_profile_table">
             <tr>
@@ -79,11 +86,11 @@
                 <td><input type="password" maxlength="32" id="taj_user_password_con" name="taj_user_password_con"></td>
             </tr>
             <tr>
-                <td>
-                    <input type="submit" name="sub" value="Save">
-                    <a href="/users/view/{{uid}}"><button class="btn btn-warning">Cancel</button></a>
-                </td>
                 <td></td>
+                <td>
+                    <input type="submit" class="btn btn-success" name="taj_eu_submit" value="Save">
+                    <a href="/users/view/{{uid}}"><input type="button" class="btn btn-warning" value="Cancel"/></a>
+                </td>
             </tr>
        </table>
     </form>

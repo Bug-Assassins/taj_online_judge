@@ -26,7 +26,7 @@ def login(request, succ = 0, err = 0) :
             json_obj['error'] = 'Successfully Logged Out !!'
         elif err == 1 :
             json_obj['error'] = 'Please Login to Continue !!'
-    except Error as e :
+    except Exception as e :
         print "Some Error Has been Caught !! ~ login.py"
 
     #Checking if User submitted Login Form

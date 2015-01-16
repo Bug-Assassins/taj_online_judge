@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from include_module import *
 
 # File Written By Ashish Kedia, ashish1294@gmail.com
@@ -15,7 +17,7 @@ def check_request_signup(request) :
     and 'taj_signup_password' in request.POST and 'taj_signup_password_con' in request.POST :
         return True
     else :
-        signup_inci = incident(content = incident.INCOMPLETE_SIGNUP_FORM, ip = request.META['REMOTE_ADDR'])
+        signup_inci = incident(content = incident.SIGNUP_FORM, ip = request.META['REMOTE_ADDR'])
         signup_inci.save()
         return False
 
@@ -38,6 +40,11 @@ def signup(request) :
             email = str(request.POST['taj_signup_email']).strip()
             if email == '' and error == '':
                 error = 'Please Enter Email ID'
+            elif error == '' :
+                try :
+                    validate_email(email)
+                except ValidationError as e :
+                    error = 'Invalid Email Address Given'
 
             name = str(request.POST['taj_signup_name']).strip()
             if name == '' and error == '':
@@ -62,7 +69,7 @@ def signup(request) :
                     u.save()
                 except IntegrityError as e:
                     error = 'A user with given details already exist !!'
-                except Error as e:
+                except Exception as e:
                     error = 'Cannot Create User at the moment !!'
 
             json_obj = {'error': error, 'user_id': user_id, 'email': email, 'name': name}

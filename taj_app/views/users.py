@@ -31,7 +31,7 @@ def view_user(request, uname) :
     json_obj['wrong_ans'] = 0
     json_obj['error'] = 0
     
-    sub_list = submission.objects.filter(submitted_by_id=request.session['id'])
+    sub_list = submission.objects.filter(submitted_by_id = request.session['id'])
 
     for sub in sub_list :
         json_obj['submitted'] = json_obj['submitted'] + 1
@@ -71,33 +71,102 @@ def search_user(request, err = 0) :
         elif err == 2 :
             json_obj['error'] = "You are not authorized for the action !!"
         elif err == 3 :
-            json_obj['error'] = "Cannot Process Your Query !!"
+            json_obj['error'] = incident.HACK_MSG
         elif 'taj_search_submit' in request.POST :
             if check_search(request):
-                print "Here - " + '/users/view/' + str(request.POST['user_id'])
-                return HttpResponseRedirect('/users/view/' + str(request.POST['user_id']))
+                uid = str(request.POST['user_id']).strip()
+                if uid == '' :
+                    json_obj['error'] = 'Please Enter A Used Name !!'
+                else :
+                    return HttpResponseRedirect('/users/view/' + str(request.POST['user_id']))
             else :
                 json_obj['error'] = incident.HACK_MSG                
-    except Error as e :
+    except Exception as e :
         json_obj['error'] = 'Invalid Parameters were Passed !!'
     
     return secure_render(request, 'user_search.html', json_obj)
 
+def check_edit(request) :
+
+    if 'taj_user_name' in request.POST and 'taj_user_password' in request.POST and \
+    'taj_user_password_con' in request.POST :
+        if request.session['type'] == user.ADMIN :
+            try :
+                acc_type = int(request.POST['account_type'])
+                if acc_type == user.STUDENT or acc_type == user.TEACHER :
+                    return True
+                else :
+                    return False
+            except Exception as e :
+                return False
+        elif 'account_type' in request.POST :
+            return False
+        else :
+            return True
+    else :
+        return False
 
 def edit_user(request, uname) :
 
     if 'userid' not in request.session :
         return HttpResponseRedirect("/err/1")
 
+    json_obj = {}
+
     try :
         uname = str(uname)
+        print "Uname ", uname
+        user_data = user.objects.get(uname = uname)
 
         if request.session['type'] == user.ADMIN or request.session['userid'] == uname :
-            if ''
+            print "Auth Granted"
+            if 'taj_eu_submit' in request.POST :
+                print "Form Submitted"
+                if check_edit(request) :
+                    print "Form Checked"
+                    try :
+                        u_n = str(request.POST['taj_user_name']).strip()
+                        u_p = str(request.POST['taj_user_password']).strip()
+                        u_c = str(request.POST['taj_user_password_con']).strip()
+                        print "Data Extracted"
+
+                        if u_n == '' :
+                            json_obj['error'] = "Please Enter Name"
+                        elif u_p == '' :
+                            json_obj['error'] = "Please Enter Password"
+                        elif u_c == '' :
+                            json_obj['error'] = "Please Enter Confirm Password"
+                        elif u_p != u_c :
+                            json_obj['error'] = "Password Mismatch"
+                        else :
+                            print "Final Else Reached"
+                            user_data.name = u_n
+                            if request.session['type'] == user.ADMIN :
+                                user_data.usertype = int(request.POST['account_type'])
+                            u = user_data.user
+                            u.set_password(request.POST)
+                            u.save()
+                            user_data.save()
+
+                            return HttpResponseRedirect('/users/view/' + str(user_data.uname))
+                            
+                    except (SyntaxError, NameError) as se :
+                        json_obj['error'] = "Invalid Data Submitted !!"
+                    except Exception as e :
+                        json_obj['error'] = 'Could Not Process Your Request !!'
+                else :
+                    inci = incident(content = incident.USER_EDIT_FORM, ip = request.META['REMOTE_ADDR'], against_id = request.session['id'])
+                    inci.save()
+                    return HttpResponseRedirect("/users/search/err/3")
+            
+            json_obj['name'] = user_data.name
+            json_obj['uid'] = user_data.uname
+            json_obj['account_type'] = user_data.usertype
+
         else :
             return HttpResponseRedirect("/users/search/err/2")
-    except Error as e :
-        print "Some Exception Was Caught !! ~ Edit User"
-        return HttpResponseRedirect("/users/search/err/3")
 
-    return secure_render(request, 'user_edit.html', {'error' : ''})
+    except Exception as e :
+        return HttpResponseRedirect("/users/search/err/1")
+
+    return secure_render(request, 'user_edit.html', json_obj)

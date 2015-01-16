@@ -115,8 +115,9 @@ class incident(models.Model) :
 
     HACK_MSG = 'Your Hack Was Detected and Reported'
     DASHBOARD_FORM = 'Hacking News Post Form'
-    INCOMPLETE_SIGNUP_FORM = 'Sending Bad Request on SignUp'
-    INCOMPLETE_SEARCH_FORM = 'Sending Bad Request on User Search'
+    SIGNUP_FORM = 'Sending Bad Request on SignUp'
+    SEARCH_FORM = 'Sending Bad Request on User Search'
+    EDIT_FORM = 'Bad Request on Edit Form'
 
     reported_at = models.DateTimeField(auto_now_add = True, auto_now = False)
     against = models.ForeignKey(user, null = True)
