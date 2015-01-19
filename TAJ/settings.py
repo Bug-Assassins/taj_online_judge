@@ -69,7 +69,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     "django.core.context_processors.request",
 )
 
-
 ROOT_URLCONF = 'TAJ.urls'
 
 WSGI_APPLICATION = 'TAJ.wsgi.application'
@@ -113,3 +112,8 @@ STATIC_URL = os.path.join(os.path.join(os.path.abspath(os.path.join(PROJECT_PATH
 STATICFILES_DIRS = (
     os.path.join(os.path.join(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)),'taj_app'),'files'),
 )
+
+# USER CODE STORAGE SETTINGS
+TESTCASE_DIR = '/home/ashish/Desktop'
+SUBMISSION_DIR = '/home/ashish/Desktop'
+TEMP_FILE_PATH = '/home/ashish/Desktop'

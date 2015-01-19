@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Add New Problem{% endblock %}
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/problem.css' %}">
+    <script type='text/javascript'>
+        function validate_upload()
+        {
+            //Checking for filling of forms
+            try
+            {
+                var field1 = document.forms["taj_addprobform"]["probid"].value;
+                if(field1==="")
+                {
+                    alert("Please fill the problem ID");
+                    return false;
+                }
+                field1 = document.forms["taj_addprobform"]["probname"].value;
+                if(field1==="")
+                {
+                    alert("Please fill the problem name");
+                    return false;
+                }
+                field1 = document.forms["taj_addprobform"]["probstate"].value;
+                if(field1==="")
+                {
+                    alert("Please fill the problem statement");
+                    return false;
+                }
+                
+                //Checking the Language specifications
+                var clang = document.forms["taj_addprobform"]["ccheck"].checked;
+                var javalang = document.forms["taj_addprobform"]["javacheck"].checked;
+                var isjudge = document.forms["taj_addprobform"]["booljudgeyes"].checked;
+                
+                if(clang && isjudge)
+                {
+                    var ctlim = document.forms["taj_addprobform"]["ctimelim"].value;
+                    var cmlim = document.forms["taj_addprobform"]["cmemlim"].value;
+                    if(ctlim==="" || cmlim==="")
+                    {
+                        alert("Please Specify Limits for C, C++");
+                        return false;
+                    }
+                }
+                
+                if(javalang && isjudge)
+                {
+                    var jtlim = document.forms["taj_addprobform"]["jtimelim"].value;
+                    var jmlim = document.forms["taj_addprobform"]["jmemlim"].value;
+                    
+                    if(jtlim==="" || jmlim==="")
+                    {
+                        alert("Please Specify Limits for Java");
+                        return false;
+                    }
+                }
+                
+                if(!clang && !javalang)
+                {
+                    alert ('Please Select atleast one language for submission');
+                    return false;
+                }
+                
+                //Checking for correct file upload
+                if(isjudge)
+                {
+                    var file1 = document.forms["taj_addprobform"]["taj_testcaseupload"].value;
+                    var sp = file1.split(".").pop();
+                    if(sp!=="zip")
+                    {
+                        alert("Incorrect file type. Please upload only .zip files");
+                        return false;
+                    }
+                
+                    var file2 = document.forms["taj_addprobform"]["taj_outputupload"].value;
+                    var sp = file2.split(".").pop();
+                    if(sp!=="zip")
+                    {
+                        alert("Incorrect file type. Please upload only .zip files");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (err)
+            {
+                alert('Warning : Unknown Error !!');
+                return false;
+            }
+        }
+    </script>
+{% endblock %}
+{% block content_heading %} Add New Problem {% endblock %}
+{% block main_content %}
+    {% if error and error != '' %}
+        {{error}}
+    {% endif %}
+    <form id="taj_addprobform" onsubmit="return validate_upload()" action="/problems/add/new" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class='taj_problemaddtable'>
+            <tr>
+                <td><label for="probid">Problem ID*:</label></td>
+                <td><input type="text" name="probid" maxlength="15" id="probid" placeholder="eg. MAXCOUNT" value="{{id}}"></td>
+            </tr>
+            <tr>
+                <td><label for="probname">Problem Name*:</label></td>
+                <td><input type="text" name="probname" id="probname" placeholder="Full problem name" value="{{name}}" ></td>
+            </tr>
+            <tr>
+                <td><label for="probstate">Statement*:</label></td>
+                <td><textarea rows="7" cols="50" id="probstate" name="probstate" placeholder="Enter the problem statement here">{{statement}}</textarea></td>
+            </tr>
+            <tr>
+                <td><label for="comment">Comment :</label></td>
+                <td><input type="text" name="comment" id="comment" placeholder="Any Special Comment" value="{{comment}}"></td>
+            </tr>
+            <tr>
+                <td><label for="booljudge">Judgment :</label></td>
+                <td>
+                    <div style='display:inline;'><input type="radio" name="booljudge" id="booljudgeyes" value="1" {% if is_judge %} checked="checked" {% endif %} >Yes</div>
+                    <div style='display:inline;'><input type="radio" name="booljudge" id="booljudgeno" value="0" {% if not is_judge %} checked="checked" {% endif %} >No</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="langcheck[]">Languages :</label></td>
+                <td style="display: inline;">
+                    <input type="checkbox" value="C" id="ccheck" name="langcheck[]"  {% if ccheck %} checked="checked" {% endif %} > C, C++
+                    <input type="checkbox" value="Java" id="javacheck" name="langcheck[]" {% if javacheck %} checked="checked" {% endif %} > Java
+                </td>
+            </tr>
+            <tr>
+                <td><label for="cmemlim">C, C++ Memory Limit :</label></td>
+                <td><input type="text" maxlength="5" placeholder="In MegaBytes" id="cmemlim" name="cmemlim" value="{{cmemlim}}"></td>
+            </tr>
+            <tr>
+                <td><label for="ctimelim">C, C++ Time Limit :</label></td>
+                <td><input type="text" maxlength="6" placeholder="In secs" id="ctimelim" name="ctimelim" value="{{ctimelim}}"></td>
+            </tr>
+            <tr>
+                <td><label for="jmemlim">Java Memory Limit :</label></td>
+                <td><input type="text" maxlength="5" placeholder="In MegaBytes" id="jmemlim" name="jmemlim" value="{{jmemlim}}" ></td>
+            </tr>
+            <tr>
+                <td><label for="jtimelim">Java Time Limit :</label></td>
+                <td><input type="text" maxlength="6" placeholder="In secs" id="jtimelim" name="jtimelim" value="{{jtimelim}}" ></td>
+            </tr>
+            <tr>
+                <td><label for="taj_testcaseupload">Test Case :</label></td>
+                <td><input type="file" id="taj_testcaseupload" name="taj_testcaseupload"></td>
+            </tr>
+            <tr>
+                <td><label for="taj_outputupload">Expected Output :</label></td>
+                <td><input type="file" id="taj_outputupload" name="taj_outputupload"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type='submit' class='btn btn-success' id='taj_add_prob_submit' name='taj_add_prob_submit'></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

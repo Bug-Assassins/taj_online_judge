@@ -66,8 +66,13 @@ class problem(models.Model) :
     comment = models.TextField()
     author = models.ForeignKey(user)
     added_at = models.DateTimeField(auto_now_add = True, auto_now = False)
+    is_judge = models.BooleanField(default = False)
+    allow_c = models.BooleanField(default = True)
+    allow_java = models.BooleanField(default = True)
     c_time_limit = models.DecimalField(default = 1.0, max_digits = 5, decimal_places = 3)
     java_time_limit = models.DecimalField(default = 2.0, max_digits = 5, decimal_places = 3)
+    c_mem_limit = models.IntegerField(default = 512)
+    java_mem_limit = models.IntegerField(default = 1024)
 
     def __str__(self) :
         return "Id = %s, Name = %s" % (self.id, self.name)

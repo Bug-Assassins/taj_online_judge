@@ -68,8 +68,6 @@ def search_user(request, err = 0) :
 
         if err == 1 :
             json_obj['error'] = "No Such User was found !!"
-        elif err == 2 :
-            json_obj['error'] = "You are not authorized for the action !!"
         elif err == 3 :
             json_obj['error'] = incident.HACK_MSG
         elif 'taj_search_submit' in request.POST :
@@ -164,7 +162,7 @@ def edit_user(request, uname) :
             json_obj['account_type'] = user_data.usertype
 
         else :
-            return HttpResponseRedirect("/users/search/err/2")
+            return HttpResponseRedirect("/error/1")
 
     except Exception as e :
         return HttpResponseRedirect("/users/search/err/1")
