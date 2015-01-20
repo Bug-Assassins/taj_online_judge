@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
+from django.utils import timezone
+import datetime
 
 # Created by Ashish Kedia, ashish1294@gmail.com
 # Created on 13th Jan, 2015
@@ -41,7 +43,7 @@ class user(models.Model) :
     usertype = models.IntegerField(default = STUDENT, choices = ACCOUNT_TYPE_CHOICES)
     image = models.FileField(upload_to = 'profile_pic/')
     account_status = models.IntegerField(default = ACTIVE, choices = ACCOUNT_STATUS_CHOICES)
-    created_at = models.DateTimeField(auto_now_add = True, auto_now = False)
+    created_at = models.DateTimeField(default = timezone.now(), editable = False)
     is_login = models.BooleanField(default = False)
     last_login = models.DateTimeField(auto_now_add = False, auto_now = False, blank = True, null = True)
     last_login_ip = models.CharField(max_length = 20, blank = True, default = '0.0.0.0')
@@ -53,7 +55,7 @@ class user(models.Model) :
 
 class news(models.Model) :
 
-    posted_at = models.DateTimeField(auto_now_add = True, auto_now = False)
+    posted_at = models.DateTimeField(default = timezone.now(), editable = False)
     content = models.CharField(max_length = 500)
     author = models.ForeignKey(user)
 
@@ -65,7 +67,7 @@ class problem(models.Model) :
     statement = models.TextField()
     comment = models.TextField()
     author = models.ForeignKey(user)
-    added_at = models.DateTimeField(auto_now_add = True, auto_now = False)
+    added_at = models.DateTimeField(default = timezone.now(), editable = False)
     is_judge = models.BooleanField(default = False)
     allow_c = models.BooleanField(default = True)
     allow_java = models.BooleanField(default = True)
@@ -106,7 +108,7 @@ class submission(models.Model) :
         (FATAL_EXCEPTION, 'Fatal Error'),
     )
 
-    submitted_at = models.DateTimeField(auto_now_add = True, auto_now = False)
+    submitted_at = models.DateTimeField(default = timezone.now(), editable = False)
     submitted_by = models.ForeignKey(user)
     problem = models.ForeignKey(problem)
     language = models.IntegerField(choices = LANGUAGE_CHOICES)
@@ -124,7 +126,7 @@ class incident(models.Model) :
     SEARCH_FORM = 'Sending Bad Request on User Search'
     EDIT_FORM = 'Bad Request on Edit Form'
 
-    reported_at = models.DateTimeField(auto_now_add = True, auto_now = False)
+    reported_at = models.DateTimeField(default = timezone.now(), editable = False)
     against = models.ForeignKey(user, null = True)
     content = models.TextField()
     ip = models.CharField(max_length = 20, null = True)
@@ -133,5 +135,5 @@ class incident(models.Model) :
 class bug(models.Model) :
 
     reported_by = models.ForeignKey(user)
-    reported_at = models.DateTimeField(auto_now_add = True, auto_now = False)
+    reported_at = models.DateTimeField(default = timezone.now(), editable = False)
     content = models.TextField()

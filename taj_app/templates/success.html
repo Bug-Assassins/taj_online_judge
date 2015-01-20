@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Error{% endblock %}
+{% block head %}
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/problem.css' %}">
+{% endblock %}
+{% block content_heading %} Successful {% endblock %}
+{% block main_content %}
+	<div class="taj_addprobsuccess">
+		{{success}}
+	</div>
+{% endblock %}

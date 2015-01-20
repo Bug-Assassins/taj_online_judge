@@ -22,6 +22,7 @@ Add Error for each Session or else the app gives Server Error 500 !!
 Add better Database Error Handling by enclosing all object accesss in try - except
 Add Db trigger codes
 Use set operator in retriving all submission of a user in Profile View Page
+Use Proper readable codes for error and success redirect pages instead of 1, 2, 3. It can get confusing at times
 
 *******************************************************
 

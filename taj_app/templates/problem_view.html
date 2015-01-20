@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content_heading %} {{name}} {% endblock %}
 {% block main_content %}
-    <div class="taj_problem_statement"> {{statement}} </div>
+    <div class="taj_problem_statement"> {% autoescape off %}{{statement}}{% endautoescape %}</div>
 
     {% if comment and comment != '' %}
         <div class="taj_problem_comment">
@@ -25,29 +25,30 @@
 
     <div class="taj_problem_isjudge">
         Judgment :
-        {% if isjudge == 0 %}
-            Problem will not be judged
-        {% else %}
+        {% if isjudge %}
             Problem will be judged
+        {% else %}
+            Problem will not be judged
         {% endif %}
     </div>
 
     <div class="taj_problem_lang">
         Languages :
-        {% if allow_c == 1 %}
+        {% if allow_c %}
             C C++
-        {% if allow_java == 1%}
+        {% endif %}
+        {% if allow_java %}
             Java
         {% endif %}
     </div>
 
     <div class="taj_problem_time_limit">
         Time Limit : 
-        {% if is_judge == 1 %}
-            {% if allow_c == 1 %}
+        {% if is_judge %}
+            {% if allow_c %}
                 {{time_limit_c}}s (C, C++), 
             {% endif %}
-            {% if allow_java == 1 %}
+            {% if allow_java %}
                 {{time_limit_java}}s (Java)
             {% endif %}
         {% else %}
@@ -57,11 +58,11 @@
 
     <div class="taj_problem_mem_limit">
         Memory Limit :
-        {% if is_judge == 1%}
-            {% if allow_c == 1 %}
+        {% if is_judge %}
+            {% if allow_c %}
                 {{memory_limit_c}} MB (C, C++),
             {% endif %}
-            {% if allow_java == 1 %}
+            {% if allow_java %}
                 {{memory_limit_java}} MB (Java)
             {% endif %}
         {% else %}
@@ -72,16 +73,16 @@
     <div class="taj_problem_control_view">
         <form id="taj_problem_submit" method="post" action="/problem/submit">
             <input type="hidden" name="submit_pid" id="submit_pid" value="{{id}}">
-            <input type="submit" value="Submit Solution">
+            <input type="submit" value="Submit" class='btn btn-success'>
         </form>
-        {% allow_edit == 1 %}
+        {% if allow_edit %}
             <form id="taj_problem_edit" method="post" action="edit_problem.php">
                 <input type="hidden" name="pid" value="<?php echo $pid; ?>">
-                <input type="submit" value="Edit Problem">
+                <input type="submit" value="Edit" class="btn btn-primary">
             </form>
             <form id="taj_problem_del" method="post" action="delete_problem.php" onsubmit=" return confirm('Are you sure you want to delete {{id}}');">
                 <input type="hidden" name="pid" value="<?php echo $pid; ?>">
-                <input type="submit" value="Delete Problem">
+                <input type="submit" value="Delete" class='btn btn-danger'>
             </form>
         {% endif %}
     </div>

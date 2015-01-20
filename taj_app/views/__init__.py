@@ -26,6 +26,10 @@ def error(request, error = 0) :
 
 		if error == 1:
 			json_obj['error'] = "You Do Not have Authorization for the action requested !!"
+		elif error == 2 :
+			json_obj['error'] = 'The Problem was Successfully Added !!'
+		elif error == 3 :
+			json_obj['error'] = 'Some Unknown Error while processing your request !!'
 		else :
 			raise Exception("check")
 	except Exception as e :
@@ -33,3 +37,23 @@ def error(request, error = 0) :
 		json_obj['error'] = "Some Unknown Error"
 
 	return secure_render(request, 'error.html', json_obj)
+
+def success(request, succ = 0) :
+
+	if 'userid' not in request.session :
+		return HttpResponseRedirect("/err/1")
+
+	json_obj = {}
+
+	try :
+		succ = int(succ)
+
+		if succ == 1:
+			json_obj['success'] = "Your Problem was Successfully Added !!"
+		else :
+			raise Exception("check")
+	except :
+		print "Unknown Error ~ From __init__.py "
+		json_obj['sucess'] = "Operation Successful !!"
+
+	return secure_render(request, 'success.html', json_obj)

@@ -84,6 +84,13 @@ label {
     text-align: center;
     font-size: 25px;
 }
+.taj_addprobsuccess{
+    margin-top: 20px;
+    width: 100%;
+    color: green;
+    text-align: center;
+    font-size: 25px;
+}
 .taj_problem_statement, .taj_problem_comment, .taj_problem_author, .taj_problem_lang, .taj_problem_time_add,.taj_problem_isjudge,
 .taj_problem_time_limit, .taj_problem_mem_limit{
     width: 100%;

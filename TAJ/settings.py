@@ -117,3 +117,9 @@ STATICFILES_DIRS = (
 TESTCASE_DIR = '/home/ashish/Desktop'
 SUBMISSION_DIR = '/home/ashish/Desktop'
 TEMP_FILE_PATH = '/home/ashish/Desktop'
+
+# Default Time Limits and Memory Limits
+DEFAULT_C_TIME_LIMIT = 2
+DEFAULT_C_MEM_LIMIT = 512
+DEFAULT_JAVA_TIME_LIMIT = 4
+DEFAULT_JAVA_MEM_LIMIT = 1024

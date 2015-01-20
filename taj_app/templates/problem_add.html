@@ -94,7 +94,9 @@
 {% block content_heading %} Add New Problem {% endblock %}
 {% block main_content %}
     {% if error and error != '' %}
-        {{error}}
+        <div class="taj_addproberror">
+            {{error}}
+        </div>
     {% endif %}
     <form id="taj_addprobform" onsubmit="return validate_upload()" action="/problems/add/new" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -109,7 +111,7 @@
             </tr>
             <tr>
                 <td><label for="probstate">Statement*:</label></td>
-                <td><textarea rows="7" cols="50" id="probstate" name="probstate" placeholder="Enter the problem statement here">{{statement}}</textarea></td>
+                <td><textarea rows="7" cols="50" id="probstate" name="probstate" placeholder="Enter the problem statement here">{{probstate}}</textarea></td>
             </tr>
             <tr>
                 <td><label for="comment">Comment :</label></td>
@@ -118,8 +120,8 @@
             <tr>
                 <td><label for="booljudge">Judgment :</label></td>
                 <td>
-                    <div style='display:inline;'><input type="radio" name="booljudge" id="booljudgeyes" value="1" {% if is_judge %} checked="checked" {% endif %} >Yes</div>
-                    <div style='display:inline;'><input type="radio" name="booljudge" id="booljudgeno" value="0" {% if not is_judge %} checked="checked" {% endif %} >No</div>
+                    <div style='display:inline;'><input type="radio" name="booljudge" id="booljudgeyes" value="1" {% if booljudge %} checked="checked" {% endif %} >Yes</div>
+                    <div style='display:inline;'><input type="radio" name="booljudge" id="booljudgeno" value="0" {% if not booljudge %} checked="checked" {% endif %} >No</div>
                 </td>
             </tr>
             <tr>
