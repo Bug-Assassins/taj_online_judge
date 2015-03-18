@@ -62,7 +62,7 @@ class news(models.Model) :
 
 class problem(models.Model) :
 
-    id = models.CharField(max_length = 15, primary_key = True)
+    id = models.CharField(max_length = 15, primary_key = True, editable = False)
     name = models.CharField(max_length = 200, unique = True)
     statement = models.TextField()
     comment = models.TextField()

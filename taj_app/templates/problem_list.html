@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}User Search{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="<?php echo $pathpre; ?>style/problem.css">
+{% endblock %}
+{% block content_heading %} Problems {% endblock %}
+{% block main_content %}
+	{% if request.session.type > 0 and message and message != '' %}
+		<div class="taj_problem_message">
+			{{message}}
+        </div>
+	{% endif %}
+	<div class="taj_problem_control_list">
+        <a href="/problems/search">Search Problem</a>
+        {% if request.session.type > 0 %}
+	        <a href="/problems/add">Add New Problem</a>
+	    {% endif %}
+    </div>
+    
+    <table class="taj_problem_list">
+        <tr class="taj_problem_list_heading">
+        	<td><a href="/problems/list/{{snoway}}"><div>S.No</div></a></td>
+            <td><a href="/problems/list/{{idway}}"><div>ID</div></a></td>
+            <td><a href="/problems/list/{{nameway}}"><div>Name</div></a></td>
+            <td><a href="/problems/list/{{subbmissionway}}"><div>Submissions</div></a></td>
+        </tr>
+        {% for prob in problem_list %}
+        	<tr>
+        		<td class="taj_problist_snotd"><a href="/problems/view/{{prob.id}}">{{prob.sno}}</a></td>
+                <td class="taj_problist_idtd"><a href="/problems/view/{{prob.id}}">{{prob.id}}</a></td>
+                <td class="taj_problist_nametd"><a href="/problems/view/{{prob.id}}">{{prob.name}}</a></td>
+                <td class="taj_problist_subtd">{{prob.submission}}</td>
+            </tr>
+      	{% endfor %}
+    </table>
+    <div class="taj_problist_switch">
+    	{% if first == false %}
+    		<a href="/problems/list/sortby/{{way}}/start/{{prev_start}}"><button>Previous</button></a>
+    	{% endif %}
+    	{% if last == false %}
+    		<a href="/problems/list/sortby/{{way}}/start/{{prev_start}}"><button>Previous</button></a>
+    	{% endif %}
+    </div>
+{% endblock %}

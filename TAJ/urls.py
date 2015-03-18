@@ -30,5 +30,5 @@ urlpatterns = patterns('',
     url(r'^users/search/?$', search_user),
     url(r'^problems/add/new?$', problem_add),
     url(r'^problems/?$', problem_list),
-    url(r'^problems/(.+)/?$', problem_view),
+    url(r'^problems/view/(.+)/?$', problem_view),
 )

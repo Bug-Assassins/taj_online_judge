@@ -107,7 +107,7 @@ def problem_add(request) :
             json_obj['jmemlim'] = int(request.POST['jmemlim'])
             json_obj['jtimelim'] = int(request.POST['jtimelim'])
 
-            print "count = ", problem.objects.all().count()
+            if problem.objects.filter(id = json_obj['id'])
 
             pr = problem(id = json_obj['id'], name = json_obj['name'], statement = json_obj['probstate'], \
                 comment = json_obj['comment'], author_id = request.session['id'], is_judge = \
@@ -127,8 +127,8 @@ def problem_add(request) :
                 temp1 = str(random.randint(1, 100000000))
                 temp2 = str(random.randint(1, 100000000))
 
-                ra = settings.TEMP_FILE_PATH +  temp1 + input_file.name
-                rb = settings.TEMP_FILE_PATH +  temp2 + output_file.name
+                ra = os.path.join(settings.TEMP_FILE_PATH, temp1 + input_file.name)
+                rb = os.path.join(settings.TEMP_FILE_PATH, temp2 + output_file.name)
 
                 temp_zip_input = open(ra, 'w')
                 temp_zip_output = open(rb, 'w')
