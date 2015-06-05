@@ -20,14 +20,25 @@ Business Logic
 
 Add Error for each Session or else the app gives Server Error 500 !!
 Add better Database Error Handling by enclosing all object accesss in try - except
-Add Db trigger codes
+Add Db trigger codes - For Computation of the Sol sub and other things - See if trigger can be added via Django itself
 Use set operator in retriving all submission of a user in Profile View Page
 Use Proper readable codes for error and success redirect pages instead of 1, 2, 3. It can get confusing at times
+Make a seaparate class with all the error message and stuff. Put it in import module
+Fix the Timezone Issue - use auto_now_add, using TimeZone is conceptually wrong
 
 *******************************************************
 
 System
 
 *******************************************************
+
 Add Cronjob for clear session
-Add utility menthods to clear incidents, bugs, users - Ideally make it configurable from settings file
+Add utility methods to clear incidents, bugs, users - Ideally make it configurable from settings file - See if can 
+
+*******************************************************
+
+Database
+
+*******************************************************
+
+Add Sample Question - Make Static Data and include SQl script in repo

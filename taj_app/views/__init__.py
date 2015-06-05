@@ -1,4 +1,4 @@
-from include_module import *
+from include_module import secure_render
 from login import *
 from signup import *
 from dashboard import *
@@ -32,7 +32,7 @@ def error(request, error = 0) :
 			json_obj['error'] = 'Some Unknown Error while processing your request !!'
 		else :
 			raise Exception("check")
-	except Exception as e :
+	except Exception:
 		print "Unknown Error ~ From __init__.py "
 		json_obj['error'] = "Some Unknown Error"
 

@@ -2,7 +2,9 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from include_module import *
+from include_module import secure_render
+from django.http import HttpResponseRedirect
+from taj_app.models import incident, user
 
 # File Written By Ashish Kedia, ashish1294@gmail.com
 # Created on - 8th January, 2015
@@ -43,7 +45,7 @@ def signup(request) :
             elif error == '' :
                 try :
                     validate_email(email)
-                except ValidationError as e :
+                except ValidationError:
                     error = 'Invalid Email Address Given'
 
             name = str(request.POST['taj_signup_name']).strip()
@@ -67,9 +69,9 @@ def signup(request) :
                     new_user = User.objects.create_user(username=user_id, password=password, email=email)
                     u = user(name=name, user=new_user, email=email, uname=user_id)
                     u.save()
-                except IntegrityError as e:
+                except IntegrityError:
                     error = 'A user with given details already exist !!'
-                except Exception as e:
+                except Exception:
                     error = 'Cannot Create User at the moment !!'
 
             json_obj = {'error': error, 'user_id': user_id, 'email': email, 'name': name}

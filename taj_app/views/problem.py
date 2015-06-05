@@ -1,6 +1,9 @@
-from include_module import *
+from include_module import secure_render
 from django.db import IntegrityError
 from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
+from taj_app.models import problem, user
 import zipfile
 import random
 import os
@@ -16,6 +19,8 @@ And experience is often the most valuable thing you have to offer.
 
 def problem_list(request) :
 
+    json_obj = {}
+    
     return secure_render(request, 'problem_view.html', json_obj)
     
 def problem_view(request, probid) :
@@ -182,22 +187,22 @@ def problem_add(request) :
 
                 return HttpResponseRedirect('/success/1')
 
-        except IntegrityError as ie :
+        except IntegrityError:
             json_obj['error'] = "Problem Already Exist !!"
-        except (zipfile.BadZipfile, zipfile.LargeZipFile) as e :
+        except (zipfile.BadZipfile, zipfile.LargeZipFile):
             json_obj['error'] = "Invalid Archive Selected !!"
-        except InputOutputZipException as ioe :
+        except InputOutputZipException:
             json_obj['error'] = "Improper Files in Input - Output Archive"
-        except (ValueError, KeyError) as fe :
+        except (ValueError, KeyError):
             # To catch Exceptions Like When Form Field is deleted and form is submitted
             json_obj['error'] = "Invalid Arguments Passed"
         except IOError :
             json_obj['error'] = "Unable to Store Test Cases. Contact Developer!!"
-        except OSError as e :
+        except OSError:
             json_obj['error'] = "System Unavailable for Test Case Upload !!"
-        #except :
-         #   json_obj['error'] = "Unable to Add Problem at the moment !!"
-          #  traceback.print_exc()
+        except :
+            json_obj['error'] = "Unable to Add Problem at the moment !!"
+            traceback.print_exc()
         finally :
             if json_obj['error'] != '' :
                 p = problem.objects.filter(id = json_obj['id'])

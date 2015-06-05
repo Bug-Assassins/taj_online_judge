@@ -1,4 +1,7 @@
-from include_module import *
+from include_module import secure_render
+from django.http import HttpResponseRedirect
+from taj_app.models import incident, user, news
+from django.utils import timezone
 
 # File Written by Ashish Kedia, ashish1294@gmail.com
 # Created on 14th Jan, 2015

@@ -1,7 +1,8 @@
-from include_module import *
-from django.db import models
-from django.contrib.auth.models import User
+from include_module import secure_render
 from django.contrib.auth import authenticate
+from django.http import HttpResponseRedirect
+from taj_app.models import user, Session
+from django.utils import timezone
 
 # File Written By Ashish Kedia, ashish1294@gmail.com
 # Created on - 8th January, 2015
@@ -26,7 +27,7 @@ def login(request, succ = 0, err = 0) :
             json_obj['error'] = 'Successfully Logged Out !!'
         elif err == 1 :
             json_obj['error'] = 'Please Login to Continue !!'
-    except Exception as e :
+    except Exception:
         print "Some Error Has been Caught !! ~ login.py"
 
     #Checking if User submitted Login Form
@@ -84,7 +85,7 @@ def logout(request) :
     if 'userid' not in request.session :
         return HttpResponseRedirect("/err/1")
 
-    json_obj = {'error' : ''}
+    #json_obj = {'error' : ''}
     user_data = user.objects.get(id=request.session['id'])
     user_data.is_login = False
     user_data.last_session = None

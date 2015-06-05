@@ -1,4 +1,7 @@
-from include_module import *
+from include_module import secure_render
+from django.http import HttpResponseRedirect
+from taj_app.models import user, submission, incident
+from 
 
 # File Created by Ashish Kedia, ashish1294@gmail.com
 # Created on 15th Jan, 2015
@@ -40,19 +43,19 @@ def view_user(request, uname) :
             json_obj['solved'] = json_obj['solved'] + 1
         elif sub.result == submission.WRONG_ANS :
             json_obj['wrong_ans'] = json_obj['wrong_ans'] + 1
-        elif sub.result == submission.TIME_LIMIT_EXCEEDED or sub.result == COMPILE_ERROR:
+        elif sub.result == submission.TIME_LIMIT_EXCEEDED or sub.result == submission.COMPILE_ERROR:
             json_obj['error'] = json_obj['error'] + 1
         elif sub.result == submission.FATAL_EXCEPTION or sub.result == submission.RUN_TIME_ERROR :
             json_obj['error'] = json_obj['error'] + 1
 
-    return render(request, 'user.html', json_obj)
+    return secure_render(request, 'user.html', json_obj)
 
 # A utility function that verifies the Search Form Fields
 def check_search(request) :
     if 'user_id' in request.POST :
         return True
     else :
-        search_inci = incident(content = incident.INCOMPLETE_SEARCH_FORM, ip = request.META['REMOTE_ADDR'], against_id = request.session['id'])
+        search_inci = incident(content = incident.SEARCH_FORM, ip = request.META['REMOTE_ADDR'], against_id = request.session['id'])
         search_inci.save()
         return False
 
@@ -95,7 +98,7 @@ def check_edit(request) :
                     return True
                 else :
                     return False
-            except Exception as e :
+            except Exception:
                 return False
         elif 'account_type' in request.POST :
             return False
@@ -148,12 +151,12 @@ def edit_user(request, uname) :
 
                             return HttpResponseRedirect('/users/view/' + str(user_data.uname))
                             
-                    except (SyntaxError, NameError) as se :
+                    except (SyntaxError, NameError):
                         json_obj['error'] = "Invalid Data Submitted !!"
-                    except Exception as e :
+                    except Exception:
                         json_obj['error'] = 'Could Not Process Your Request !!'
                 else :
-                    inci = incident(content = incident.USER_EDIT_FORM, ip = request.META['REMOTE_ADDR'], against_id = request.session['id'])
+                    inci = incident(content = incident.EDIT_FORM, ip = request.META['REMOTE_ADDR'], against_id = request.session['id'])
                     inci.save()
                     return HttpResponseRedirect("/users/search/err/3")
             
@@ -164,7 +167,7 @@ def edit_user(request, uname) :
         else :
             return HttpResponseRedirect("/error/1")
 
-    except Exception as e :
+    except Exception:
         return HttpResponseRedirect("/users/search/err/1")
 
     return secure_render(request, 'user_edit.html', json_obj)

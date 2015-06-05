@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
-import datetime
+from MySQLdb.constants.FLAG import AUTO_INCREMENT
 
 # Created by Ashish Kedia, ashish1294@gmail.com
 # Created on 13th Jan, 2015
@@ -14,7 +14,7 @@ import datetime
 '''You are not haunted by the war, you miss it!
 - Sherlock Holmes, Season 1'''
 
-class user(models.Model) :
+class user(models.Model):
 
     STUDENT = 0
     TEACHER = 1
@@ -44,6 +44,7 @@ class user(models.Model) :
     image = models.FileField(upload_to = 'profile_pic/')
     account_status = models.IntegerField(default = ACTIVE, choices = ACCOUNT_STATUS_CHOICES)
     created_at = models.DateTimeField(default = timezone.now(), editable = False)
+    updated_at = models.DateTimeField(default = timezone.now())
     is_login = models.BooleanField(default = False)
     last_login = models.DateTimeField(auto_now_add = False, auto_now = False, blank = True, null = True)
     last_login_ip = models.CharField(max_length = 20, blank = True, default = '0.0.0.0')
@@ -68,6 +69,9 @@ class problem(models.Model) :
     comment = models.TextField()
     author = models.ForeignKey(user)
     added_at = models.DateTimeField(default = timezone.now(), editable = False)
+    adding_ip = models.CharField(max_length = 20, blank = False)
+    updated_at = models.DateTimeField(default = timezone.now(), auto_now = True)
+    updating_ip = models.CharField(max_length = 20, blank = False)
     is_judge = models.BooleanField(default = False)
     allow_c = models.BooleanField(default = True)
     allow_java = models.BooleanField(default = True)
@@ -121,7 +125,7 @@ class submission(models.Model) :
 class incident(models.Model) :
 
     HACK_MSG = 'Your Hack Was Detected and Reported'
-    DASHBOARD_FORM = 'Hacking News Post Form'
+    DASHBOARD_FORM = 'Bad Request on News Post Form'
     SIGNUP_FORM = 'Sending Bad Request on SignUp'
     SEARCH_FORM = 'Sending Bad Request on User Search'
     EDIT_FORM = 'Bad Request on Edit Form'
@@ -129,11 +133,12 @@ class incident(models.Model) :
     reported_at = models.DateTimeField(default = timezone.now(), editable = False)
     against = models.ForeignKey(user, null = True)
     content = models.TextField()
-    ip = models.CharField(max_length = 20, null = True)
-
+    ip = models.CharField(max_length = 20)
+    
 
 class bug(models.Model) :
 
     reported_by = models.ForeignKey(user)
     reported_at = models.DateTimeField(default = timezone.now(), editable = False)
+    reporting_ip = models.CharField(max_length = 20, blank = False)
     content = models.TextField()
